@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.shopping.service.ShoppingService;
 
@@ -19,4 +20,8 @@ public class ShoppingController {
 		return "item/itemList";
 	}
 
+	@RequestMapping(value = "/a.do")
+	public @ResponseBody String test() {
+		return "{\"a\":\"21\"}";
+	}
 }
