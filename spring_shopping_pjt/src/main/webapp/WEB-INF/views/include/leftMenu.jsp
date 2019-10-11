@@ -32,9 +32,9 @@
 								class="hide-menu"> 회원 목록 </span></a></li>
 					</ul></li>
 				<li class="sidebar-item"><a
-					class="sidebar-link waves-effect waves-dark sidebar-link"
-					href="#" aria-expanded="false"><i
-						class="mdi mdi-pencil"></i><span class="hide-menu">Elements</span></a></li>
+					class="sidebar-link waves-effect waves-dark sidebar-link" href="./categoryList.do"
+					aria-expanded="false"><i class="mdi mdi-pencil"></i><span
+						class="hide-menu">카테고리 관리</span></a></li>
 				<li class="sidebar-item"><a
 					class="sidebar-link has-arrow waves-effect waves-dark"
 					href="javascript:void(0)" aria-expanded="false"><i

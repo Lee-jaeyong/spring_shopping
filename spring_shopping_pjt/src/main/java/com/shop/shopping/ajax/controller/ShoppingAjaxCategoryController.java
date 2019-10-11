@@ -13,7 +13,7 @@ import com.shop.shopping.VO.CategoryVO;
 import com.shop.shopping.service.CategoryService;
 
 @Controller
-public class ShoppingCategoryController {
+public class ShoppingAjaxCategoryController {
 
 	@Autowired
 	CategoryService categoryService;
