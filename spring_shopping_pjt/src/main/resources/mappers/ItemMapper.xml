@@ -2,11 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.shop.shopping.DAO.ShoppingDAO">
-
-	<select id="selectNow" resultType="string">
-		SELECT NOW()
-	</select>
-
 	<select id="getItemlist" parameterType="hashmap"
 		resultType="hashmap">
 		SELECT DISTINCT (i_idx),i_name, c_categoryName,

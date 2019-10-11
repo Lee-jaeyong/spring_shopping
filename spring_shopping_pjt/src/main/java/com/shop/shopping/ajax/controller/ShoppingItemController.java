@@ -21,7 +21,7 @@ public class ShoppingItemController {
 	ShoppingService shoppingService;
 
 	@RequestMapping(value = "/getItemList", produces = "text/plain;charset=UTF-8")
-	public @ResponseBody String test(@RequestParam("search") String search, @RequestParam("sortType") String sortType,
+	public @ResponseBody String getItemList(@RequestParam("search") String search, @RequestParam("sortType") String sortType,
 			@RequestParam("page") String page, @RequestParam("showType") String showType) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search", "%" + search + "%");

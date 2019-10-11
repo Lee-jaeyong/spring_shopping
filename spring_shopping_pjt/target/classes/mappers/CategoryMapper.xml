@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.shopping.DAO.CategoryDAO">
+
+	<select id="getC_Category" resultType="hashmap">
+		select * from
+		s_categoryName
+	</select>
+
+	<select id="getCsCategoryList" resultType="hashmap">
+		select
+		csn_idx,cs_categoryName from s_small_categoryname where c_idx =
+		#{category}
+	</select>
+
+</mapper>
