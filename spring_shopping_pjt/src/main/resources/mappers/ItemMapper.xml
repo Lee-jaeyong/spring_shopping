@@ -25,4 +25,29 @@
 		SELECT COUNT(DISTINCT(i_idx)) from s_item where i_name LIKE
 		#{search}
 	</select>
+
+	<select id="getItemlistAll" resultType="hashmap">
+		SELECT DISTINCT (i_idx),i_name, c_categoryName,
+		cs_categoryName, i_price,
+		img_path, i_hit,i_date
+		FROM s_item,
+		s_mainimg, s_category,
+		s_small_category,s_categoryName,s_small_categoryName
+		WHERE s_item.i_idx
+		= s_mainimg.img_idx AND s_categoryName.cn_idx = s_category.c_idx AND
+		s_small_category.cs_idx = s_small_categoryName.csn_idx
+		AND s_item.i_idx
+		= s_category.c_i_idx AND s_item.i_idx = s_small_category.cs_i_idx
+	</select>
+
+	<insert id="addItem" parameterType="hashmap">
+		insert into s_item values
+		(NULL,#{i_name},#{i_price},#{i_deteil},0,#{i_info},0,now());
+		insert
+		into s_category values (#{c_idx},NULL);
+		insert into s_mainimg values
+		(NULL,#{i_main});
+		insert into s_small_category values
+		(#{c_idx},#{cs_idx},NULL);
+	</insert>
 </mapper>

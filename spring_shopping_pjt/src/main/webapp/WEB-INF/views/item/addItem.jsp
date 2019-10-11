@@ -55,7 +55,7 @@
 									<label for="lname"
 										class="col-sm-3 text-right control-label col-form-label">*가격</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" name="">
+										<input type="text" class="form-control" name="i_price">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -82,7 +82,7 @@
 									<label for="lname"
 										class="col-sm-3 text-right control-label col-form-label">대표이미지</label>
 									<div class="col-sm-9">
-										<input type="file" name="img_path"
+										<input type="file" name="ImgMain"
 											class="form-control-file border">
 									</div>
 								</div>
@@ -90,7 +90,7 @@
 									<label for="lname"
 										class="col-sm-3 text-right control-label col-form-label">상세페이지</label>
 									<div class="col-sm-9">
-										<input type="file" name="i_detailimg"
+										<input type="file" name="ImgDetail"
 											class="form-control-file border">
 									</div>
 								</div>

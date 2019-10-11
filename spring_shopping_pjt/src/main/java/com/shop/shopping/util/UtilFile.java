@@ -17,9 +17,13 @@ public class UtilFile {
 	@Autowired
 	ServletContext context;
 
-	public void fileUpload(MultipartFile uploadFile) {
-		String path = context.getRealPath("/") + "\\resources\\image\\";
-		System.out.println(path);
+	public String fileUpload(boolean check, MultipartFile uploadFile) {
+		String chk = "mainImg";
+		if (check == true)
+			chk = "detailImg";
+		String path = context.getRealPath("/") + "\\src\\main\\webapp\\resources\\image\\" + chk + "\\";
+		path = path.replace("wtpwebapps", "webapps").replace("\\spring_shopping_pjt\\",
+				"\\spring_shopping\\spring_shopping_pjt\\");
 		OutputStream out = null;
 		PrintWriter printWriter = null;
 		try {
@@ -40,5 +44,6 @@ public class UtilFile {
 				e.printStackTrace();
 			}
 		}
+		return path + uploadFile.getOriginalFilename();
 	}
 }

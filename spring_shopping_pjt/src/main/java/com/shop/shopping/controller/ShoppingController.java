@@ -1,5 +1,8 @@
 package com.shop.shopping.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.shop.shopping.VO.ItemVO;
 import com.shop.shopping.service.CategoryService;
 import com.shop.shopping.service.ShoppingService;
 import com.shop.shopping.util.UtilFile;
@@ -40,8 +44,24 @@ public class ShoppingController {
 	}
 
 	@RequestMapping(value = "/addItemExecute.do", method = RequestMethod.POST)
-	public String addItemExecute(@RequestParam("img_path") MultipartFile img_path) throws Exception {
-		utilFile.fileUpload(img_path);
+	public String addItemExecute(ItemVO itemVO, @RequestParam("ImgMain") MultipartFile ImgMain,
+			@RequestParam("ImgDetail") MultipartFile ImgDetail) throws Exception {
+		String mainImg = utilFile.fileUpload(false, ImgMain);
+		String detailImg = utilFile.fileUpload(true, ImgDetail);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("i_name", itemVO.getI_name());
+		map.put("i_price", itemVO.getI_price());
+		map.put("i_deteil", detailImg);
+		map.put("i_info", itemVO.getI_info());
+		map.put("c_idx", itemVO.getC_categoryNum());
+		map.put("i_main", mainImg);
+		map.put("cs_idx", itemVO.getCs_categoryNum());
+		shoppingService.addItem(map);
 		return "redirect:itemList.do";
+	}
+	
+	@RequestMapping(value ="/addAllItem.do", method = RequestMethod.GET)
+	public String addAllItem() {
+		return "item/addAllItem";
 	}
 }

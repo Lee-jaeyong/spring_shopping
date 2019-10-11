@@ -6,8 +6,7 @@
 <script type="text/javascript">
 	function pageMove(page) {
 		$("#nowPage").val(page);
-		$
-				.ajax({
+		$.ajax({
 					url : "<c:url value='/getItemList'/>",
 					dataType : "json",
 					data : {
@@ -92,35 +91,60 @@
 			<div class="container-fluid">
 				<div class="card">
 					<div class="card-body">
-						<div class="table-responsive">
-							<div>
-								<div class="input-group col-sm-3">
-									<input id="searchItem" type="text" class="form-control"
-										onkeyup="pageMove(0);" placeholder="Search">
-									<div class="input-group-append">
-										<button class="btn btn-success" onclick="pageMove(0);">검색</button>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="card">
+									<div class="card-body">
+										<br />
+										<div class="input-group">
+											<input id="searchItem" type="text" class="form-control"
+												onkeyup="pageMove(0);" placeholder="Search">
+											<div class="input-group-append">
+												<button class="btn btn-success" onclick="pageMove(0);">검색</button>
+											</div>
+										</div>
 									</div>
 								</div>
-								<br />
-								<div class="form-group col-sm-3">
-									<label for="sel1">정렬:</label> <select id="sortType"
-										class="form-control" onchange="pageMove(0);">
-										<option value="i_idx">상품번호 순</option>
-										<option value="i_name">상품명 순</option>
-										<option value="i_price">가격 순</option>
-										<option value="i_date">상품 등록일 순</option>
-									</select>
-								</div>
-								<div class="form-group col-sm-3">
-									<label for="sel1">보기:</label> <select id="showType"
-										class="form-control" onchange="pageMove(0);">
-										<option value="5">5개씩 보기</option>
-										<option value="10">10개씩 보기</option>
-										<option value="20">20개씩 보기</option>
-										<option value="30">30개씩 보기</option>
-									</select>
+							</div>
+							<div class="col-md-3">
+								<div class="card">
+									<div class="card-body">
+										<label for="sel1">정렬:</label> <select id="sortType"
+											class="form-control" onchange="pageMove(0);">
+											<option value="i_idx">상품번호 순</option>
+											<option value="i_name">상품명 순</option>
+											<option value="i_price">가격 순</option>
+											<option value="i_date">상품 등록일 순</option>
+										</select>
+									</div>
 								</div>
 							</div>
+							<div class="col-md-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="form-group">
+											<label for="sel1">보기:</label> <select id="showType"
+												class="form-control" onchange="pageMove(0);">
+												<option value="5">5개씩 보기</option>
+												<option value="10">10개씩 보기</option>
+												<option value="20">20개씩 보기</option>
+												<option value="30">30개씩 보기</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="card">
+									<br />
+									<div class="card-body">
+										<button class="btn btn-success" onclick="location.href='./excelDown';">엑셀
+											다운로드</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="table-responsive">
 							<br />
 							<table id="zero_config"
 								class="table table-striped table-bordered">

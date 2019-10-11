@@ -18,7 +18,7 @@
 						<li class="sidebar-item"><a href="./addItem.do"
 							class="sidebar-link"><i class="mdi mdi-pencil"></i><span
 								class="hide-menu"> 상품 등록 </span></a></li>
-						<li class="sidebar-item"><a href="form-wizard.html"
+						<li class="sidebar-item"><a href="./addAllItem.do"
 							class="sidebar-link"><i class="mdi mdi-note-plus"></i><span
 								class="hide-menu"> 상품 일괄 등록 </span></a></li>
 					</ul></li>

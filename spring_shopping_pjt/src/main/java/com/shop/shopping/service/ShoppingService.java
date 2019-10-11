@@ -1,5 +1,6 @@
 package com.shop.shopping.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,5 +22,13 @@ public class ShoppingService {
 
 	public int getTotalListCount(String search) throws Exception {
 		return shoppingDAO.getTotalListCount(search);
+	}
+
+	public boolean addItem(Map<String, Object> map) throws Exception {
+		return shoppingDAO.addItem(map);
+	}
+
+	public List<HashMap<String, Object>> getItemlistAll() throws Exception {
+		return shoppingDAO.getItemlistAll();
 	}
 }
