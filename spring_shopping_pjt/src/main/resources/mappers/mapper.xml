@@ -7,11 +7,27 @@
 		SELECT NOW()
 	</select>
 
-	<select id="getItemlist" parameterType="hashmap" resultType="hashmap">
-		SELECT DISTINCT (i_idx),i_name, c_categoryName, cs_categoryName, i_price, img_path, i_hit,i_date
-		FROM s_item, s_mainimg, s_category, s_small_category,s_categoryName,s_small_categoryName
-		WHERE s_item.i_idx = s_mainimg.img_idx AND s_categoryName.cn_idx = s_category.c_idx AND s_small_category.cs_idx = s_small_categoryName.csn_idx
-		AND s_item.i_idx = s_category.c_i_idx AND s_item.i_idx = s_small_category.cs_i_idx
-		AND i_name LIKE  '%' || #{search} || '%' order by #{sortType} desc limit #{page} , #{showType}
+	<select id="getItemlist" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT DISTINCT (i_idx),i_name, c_categoryName,
+		cs_categoryName, i_price, img_path, i_hit,i_date
+		FROM s_item,
+		s_mainimg, s_category,
+		s_small_category,s_categoryName,s_small_categoryName
+		WHERE s_item.i_idx
+		= s_mainimg.img_idx AND s_categoryName.cn_idx = s_category.c_idx AND
+		s_small_category.cs_idx = s_small_categoryName.csn_idx
+		AND s_item.i_idx
+		= s_category.c_i_idx AND s_item.i_idx = s_small_category.cs_i_idx
+		AND
+		i_name LIKE #{search} order by ${sortType} desc limit
+		#{page} ,
+		#{showType}
+	</select>
+
+	<select id="getTotalListCount" parameterType="String"
+		resultType="integer">
+		SELECT COUNT(DISTINCT(i_idx)) from s_item where i_name LIKE
+		#{search}
 	</select>
 </mapper>

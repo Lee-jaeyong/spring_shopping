@@ -10,4 +10,5 @@ public interface ShoppingDAO {
 
 	public List<ItemVO> getItemlist(Map<String, Object> map) throws Exception;
 
+	public int getTotalListCount(String search) throws Exception;
 }

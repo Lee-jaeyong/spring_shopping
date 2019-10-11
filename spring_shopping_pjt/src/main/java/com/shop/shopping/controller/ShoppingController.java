@@ -2,10 +2,8 @@ package com.shop.shopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.shopping.service.ShoppingService;
 
@@ -16,12 +14,12 @@ public class ShoppingController {
 	ShoppingService shoppingService;
 
 	@RequestMapping(value = "/itemList.do", method = RequestMethod.GET)
-	public String itemList(Model model) throws Exception {
+	public String itemList() throws Exception {
 		return "item/itemList";
 	}
 
-	@RequestMapping(value = "/a.do")
-	public @ResponseBody String test() {
-		return "{\"a\":\"21\"}";
+	@RequestMapping(value = "/addItem.do", method = RequestMethod.GET)
+	public String addItem() throws Exception {
+		return "item/addItem";
 	}
 }

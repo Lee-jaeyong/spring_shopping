@@ -3,19 +3,80 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html dir="ltr">
-<%@include file="../include/pageHead.jsp"%>
-<script>
+<script type="text/javascript">
 	function pageMove(page) {
-		$.ajax({
-			url : "<c:url value='/a.do'/>",
-			dataType : "json",
-			success : function(data) {
-				alert(data.a);
-			}
-		})
+		$("#nowPage").val(page);
+		$
+				.ajax({
+					url : "<c:url value='/getItemList'/>",
+					dataType : "json",
+					data : {
+						"search" : $("#searchItem").val(),
+						"sortType" : $("#sortType").val(),
+						"page" : page,
+						"showType" : $("#showType").val()
+					},
+					success : function(data) {
+						var html = "";
+						var btnSection = "";
+						if (data.result.length > 0) {
+							for (var i = 0; i < data.result.length; i++) {
+								html += "<tr>";
+								html += "<td>" + data.result[i].i_idx + "</td>";
+								html += "<td>" + data.result[i].i_name
+										+ "</td>";
+								html += "<td>" + data.result[i].i_price
+										+ "</td>";
+								html += "<td>" + data.result[i].img_path
+										+ "</td>";
+								html += "<td>" + data.result[i].c_categoryName
+										+ "</td>";
+								html += "<td>" + data.result[i].cs_categoryName
+										+ "</td>";
+								html += "<td>" + data.result[i].i_date
+										+ "</td>";
+								html += "</tr>";
+							}
+
+							if (parseInt(data.startBlock) == 0)
+								btnSection += "<button type='button' class='btn btn-primary disabled'><</button>";
+							else
+								btnSection += "<button type='button' onclick='pageMove("
+										+ (parseInt(data.startBlock) - $(
+												"#showType").val())
+										+ ")' class='btn btn-primary'><</button>";
+
+							for (var i = parseInt(data.startBlock); i < parseInt(data.endBlock); i++) {
+								if (page == i) {
+									btnSection += "  <button type='button' class='btn btn-primary disabled'>"
+											+ (parseInt(i) + 1) + "</button>";
+								} else {
+									btnSection += "  <button type='button' onclick='pageMove("
+											+ i
+											+ ")' class='btn btn-primary'>"
+											+ (parseInt(i) + 1) + "</button>";
+								}
+							}
+
+							if (parseInt(data.endBlock) == parseInt(data.totalBlock))
+								btnSection += "<button type='button' class='btn btn-primary disabled'>></button>";
+							else
+								btnSection += "<button type='button' onclick='pageMove("
+										+ (parseInt(data.startBlock) + $(
+												"#showType").val())
+										+ ")' class='btn btn-primary'>></button>";
+						} else {
+							html += "<tr>";
+							html += "<td colspan='7'>*검색하신 상품이 존재하지 않습니다.</td>";
+							html += "</tr>";
+						}
+						$("#itemSection").html(html);
+						$("#pageBtnSection").html(btnSection);
+					}
+				})
 	}
-	window.onload = pageMove;
 </script>
+<%@include file="../include/pageHead.jsp"%>
 <body>
 	<div class="preloader">
 		<div class="lds-ripple">
@@ -32,6 +93,35 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="table-responsive">
+							<div>
+								<div class="input-group col-sm-3">
+									<input id="searchItem" type="text" class="form-control"
+										onkeyup="pageMove(0);" placeholder="Search">
+									<div class="input-group-append">
+										<button class="btn btn-success" onclick="pageMove(0);">검색</button>
+									</div>
+								</div>
+								<br />
+								<div class="form-group col-sm-3">
+									<label for="sel1">정렬:</label> <select id="sortType"
+										class="form-control" onchange="pageMove(0);">
+										<option value="i_idx">상품번호 순</option>
+										<option value="i_name">상품명 순</option>
+										<option value="i_price">가격 순</option>
+										<option value="i_date">상품 등록일 순</option>
+									</select>
+								</div>
+								<div class="form-group col-sm-3">
+									<label for="sel1">보기:</label> <select id="showType"
+										class="form-control" onchange="pageMove(0);">
+										<option value="5">5개씩 보기</option>
+										<option value="10">10개씩 보기</option>
+										<option value="20">20개씩 보기</option>
+										<option value="30">30개씩 보기</option>
+									</select>
+								</div>
+							</div>
+							<br />
 							<table id="zero_config"
 								class="table table-striped table-bordered">
 								<thead>
@@ -40,17 +130,16 @@
 										<th>상품명</th>
 										<th>가격</th>
 										<th>메인이미지</th>
-										<th>상세페이지</th>
+										<th>대분류</th>
+										<th>소분류</th>
 										<th>상품 등록일</th>
 									</tr>
 								</thead>
 								<tbody id="itemSection">
-
 								</tbody>
 							</table>
-							<button onclick="pageMove();"></button>
+							<div id="pageBtnSection" class="btn-group"></div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -58,5 +147,9 @@
 		<%@include file="../include/pageFooter.jsp"%>
 	</div>
 	<%@include file="../include/include_JS.html"%>
+	<input type="hidden" id="nowPage" value="" />
+	<script>
+		window.onload = pageMove(0);
+	</script>
 </body>
 </html>

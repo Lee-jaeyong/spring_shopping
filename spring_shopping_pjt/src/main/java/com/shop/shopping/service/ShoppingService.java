@@ -15,12 +15,11 @@ public class ShoppingService {
 	@Autowired
 	ShoppingDAO shoppingDAO;
 
-	public String selectNow() throws Exception {
-		return shoppingDAO.selectNow();
-	}
-
 	public List<ItemVO> getItemlist(Map<String, Object> map) throws Exception {
 		return shoppingDAO.getItemlist(map);
 	}
 
+	public int getTotalListCount(String search) throws Exception {
+		return shoppingDAO.getTotalListCount(search);
+	}
 }
