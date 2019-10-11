@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.shopping.DAO.UserDAO">
+
+	<select id="getUserList" parameterType="hashmap" resultType="hashmap">
+		select
+		u_idx,u_identy,u_phone1,u_phone2,u_phone3,u_name,u_birth,u_address,u_date,u_email
+		from s_user where u_name like #{u_name} order by ${sortType} desc limit #{page},#{showType}
+	</select>
+
+	<select id="getTotalUser" resultType="int">
+		select count(u_idx)
+		from s_user where u_name like #{u_name}
+	</select>
+
+</mapper>
