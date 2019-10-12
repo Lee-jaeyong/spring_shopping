@@ -13,7 +13,7 @@
 				"path" : $("#excelUpload").val()
 			},
 			success : function(data) {
-				if(data.result == 'true')
+				if (data.result == 'true')
 					alert("엑셀 업로드 성공");
 				else
 					alert("엑셀 업로드 중 문제가 발생했습니다.");
@@ -21,7 +21,8 @@
 		})
 	}
 
-	function excelChange() {
+	function excelChange(file) {
+		$("#excelText").html(file.value);
 		$.ajax({
 			url : "<c:url value='/excelList'/>",
 			dataType : "json",
@@ -64,15 +65,19 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="table-responsive">
-							<div>
+							<div class="row">
 								<div class="input-group col-sm-6">
-									<input id="excelUpload" type="file" class="form-control"
-										onchange="excelChange();" accept=".xls">
-									<div class="input-group-append">
-										<button class="btn btn-success" onclick="excelUpload();">업로드</button>
+									<div class="custom-file">
+										<input id="excelUpload" type="file" class="custom-file-input"
+											onchange="excelChange(this);" accept=".xls"><label
+											class="custom-file-label" for="validatedCustomFile"
+											id="excelText">Choose file...</label>
 									</div>
 								</div>
 								<br />
+								<div class="col-sm-6 input-group-append">
+									<button class="btn btn-success" onclick="excelUpload();">업로드</button>
+								</div>
 							</div>
 							<br />
 							<table id="zero_config"

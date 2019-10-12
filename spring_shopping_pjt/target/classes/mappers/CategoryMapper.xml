@@ -14,4 +14,15 @@
 		#{category}
 	</select>
 
+	<select id="getCsCategoryCount" resultType="int">
+		select count(cns_idx) from s_small_categoryname where c_idx = #{category}
+	</select>
+
+	<insert id="addCcategory" parameterType="string">
+		insert into s_categoryname values (NULL,#{category})
+	</insert>
+
+	<insert id="addCscategory" parameterType="hashmap">
+		insert into s_small_categoryname values (#{categoryClass},NULL,#{category})
+	</insert>
 </mapper>

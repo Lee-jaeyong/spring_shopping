@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html dir="ltr">
 <script>
+	function changeFile(file, ImgText) {
+		$("#" + ImgText).html(file.value);
+	}
+
 	function selectCS_category() {
 		$
 				.ajax({
@@ -40,8 +44,8 @@
 			<div class="container-fluid">
 				<div class="card">
 					<div class="card-body">
-						<form class="form-horizontal" action="./addItemExecute.do" method="post"
-							enctype="multipart/form-data">
+						<form class="form-horizontal" action="./addItemExecute.do"
+							method="post" enctype="multipart/form-data">
 							<div class="card-body">
 								<h4 class="card-title">상품 등록(*는 필수 기재입니다)</h4>
 								<div class="form-group row">
@@ -82,16 +86,24 @@
 									<label for="lname"
 										class="col-sm-3 text-right control-label col-form-label">대표이미지</label>
 									<div class="col-sm-9">
-										<input type="file" name="ImgMain"
-											class="form-control-file border">
+										<div class="custom-file">
+											<input type="file" name="ImgMain" class="custom-file-input"
+												onchange="changeFile(this,'mainImgText');"> <label
+												class="custom-file-label" for="validatedCustomFile"
+												id="mainImgText">Choose file...</label>
+										</div>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="lname"
 										class="col-sm-3 text-right control-label col-form-label">상세페이지</label>
 									<div class="col-sm-9">
-										<input type="file" name="ImgDetail"
-											class="form-control-file border">
+										<div class="custom-file">
+											<input type="file" name="ImgDetail" class="custom-file-input"
+												onchange="changeFile(this,'detailImgText');"> <label
+												class="custom-file-label" for="validatedCustomFile"
+												id="detailImgText">Choose file...</label>
+										</div>
 									</div>
 								</div>
 								<div class="form-group row">

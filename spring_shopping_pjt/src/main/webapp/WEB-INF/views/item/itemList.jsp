@@ -6,7 +6,8 @@
 <script type="text/javascript">
 	function pageMove(page) {
 		$("#nowPage").val(page);
-		$.ajax({
+		$
+				.ajax({
 					url : "<c:url value='/getItemList'/>",
 					dataType : "json",
 					data : {
@@ -138,8 +139,8 @@
 								<div class="card">
 									<br />
 									<div class="card-body">
-										<button class="btn btn-success" onclick="location.href='./excelDown';">엑셀
-											다운로드</button>
+										<button class="btn btn-success"
+											onclick="location.href='./excelDown';">엑셀 다운로드</button>
 									</div>
 								</div>
 							</div>
