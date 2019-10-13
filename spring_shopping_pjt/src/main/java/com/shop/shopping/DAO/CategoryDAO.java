@@ -11,6 +11,8 @@ public interface CategoryDAO {
 	public List<CategoryVO> getCsCategoryList(int category) throws Exception;
 
 	public int addCcategory(String category) throws Exception;
+
 	public int addCscategory(Map<String, Object> map) throws Exception;
+
 	public int getCsCategoryCount(String category) throws Exception;
 }

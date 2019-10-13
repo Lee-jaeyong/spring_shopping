@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.shopping.DAO.OrderDAO">
+
+	<select id="getOrderList" resultType="hashmap"
+		parameterType="hashmap">
+		select
+		o_idx,u_identy,i_name,o_i_price,o_count,o_ordername,o_address,o_date
+		from s_order,s_user,s_item
+		where s_order.o_u_idx = s_user.u_idx and
+		s_order.o_i_idx = s_item.i_idx and
+		o_ordername like #{search} order by
+		${sortType} desc limit #{page}, #{showType};
+	</select>
+
+	<select id="getOrderCount" resultType="int">
+		select count(o_idx) from
+		s_order where o_ordername like #{search}
+	</select>
+
+</mapper>
