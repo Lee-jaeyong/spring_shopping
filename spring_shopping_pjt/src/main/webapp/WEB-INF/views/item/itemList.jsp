@@ -29,8 +29,12 @@
 										+ "<span style='background-color:yellow;'>"
 										+ $("#searchItem").val()
 										+ "</span>"
-										+ name.substr(name.indexOf($("#searchItem").val())
-														+ $("#searchItem").val().length,name.length);
+										+ name.substr(
+												name.indexOf($("#searchItem")
+														.val())
+														+ $("#searchItem")
+																.val().length,
+												name.length);
 								html += "<tr>";
 								html += "<td width='130px;' align='center'><img src='resources/image/" + data.result[i].img_path + "' style='height:100px; width:130px;'></td>";
 								html += "<td>" + data.result[i].i_idx + "</td>";
@@ -45,6 +49,8 @@
 										+ "</td>";
 								html += "<td>" + data.result[i].i_date
 										+ "</td>";
+								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-primary'>수정</button></td>";
+								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-success'>삭제</button></td>";
 								html += "</tr>";
 							}
 
@@ -169,6 +175,8 @@
 										<th>대분류</th>
 										<th>소분류</th>
 										<th>상품 등록일</th>
+										<th></th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody id="itemSection">
