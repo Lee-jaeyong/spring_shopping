@@ -21,11 +21,20 @@
 						var btnSection = "";
 						if (data.result.length > 0) {
 							for (var i = 0; i < data.result.length; i++) {
+
+								var name = data.result[i].i_name;
+
+								name = name.substr(0, name.indexOf($(
+										"#searchItem").val()))
+										+ "<span style='background-color:yellow;'>"
+										+ $("#searchItem").val()
+										+ "</span>"
+										+ name.substr(name.indexOf($("#searchItem").val())
+														+ $("#searchItem").val().length,name.length);
 								html += "<tr>";
-								html += "<td width='130px;' align='center'><img src='resources/image/" + data.result[i].img_path + "' style='height:100px;'></td>";
+								html += "<td width='130px;' align='center'><img src='resources/image/" + data.result[i].img_path + "' style='height:100px; width:130px;'></td>";
 								html += "<td>" + data.result[i].i_idx + "</td>";
-								html += "<td>" + data.result[i].i_name
-										+ "</td>";
+								html += "<td>" + name + "</td>";
 								html += "<td>" + data.result[i].i_price
 										+ "</td>";
 								html += "<td>" + data.result[i].img_path

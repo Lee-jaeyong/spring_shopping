@@ -13,6 +13,11 @@ public class ShoppingUserController {
 	@Autowired
 	UserService userService;
 
+	@RequestMapping(value = "/userLogin.do", method = RequestMethod.GET)
+	public String userLogin() throws Exception {
+		return "user/login";
+	}
+
 	@RequestMapping(value = "/userList.do", method = RequestMethod.GET)
 	public String userList() throws Exception {
 		return "user/userList";

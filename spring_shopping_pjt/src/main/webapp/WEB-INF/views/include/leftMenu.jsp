@@ -54,7 +54,7 @@
 						class="mdi mdi-account-key"></i><span class="hide-menu">사용자
 					</span></a>
 					<ul aria-expanded="false" class="collapse  first-level">
-						<li class="sidebar-item"><a href="authentication-login.html"
+						<li class="sidebar-item"><a href="./userLogin.do"
 							class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span
 								class="hide-menu"> 로그인 </span></a></li>
 					</ul></li>
