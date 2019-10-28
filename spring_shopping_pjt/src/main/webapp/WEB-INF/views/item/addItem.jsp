@@ -4,8 +4,13 @@
 <!DOCTYPE html>
 <html dir="ltr">
 <script>
-	function changeFile(file, ImgText) {
+	function changeFile(file, ImgText, ImgClass) {
 		$("#" + ImgText).html(file.value);
+		var reader = new FileReader();
+		reader.readAsDataURL(file.files[0]);
+		reader.onload = function(e) {
+			$("#mainImg" + ImgClass).attr("src", e.target.result);
+		}
 	}
 
 	function selectCS_category() {
@@ -88,10 +93,13 @@
 									<div class="col-sm-9">
 										<div class="custom-file">
 											<input type="file" name="ImgMain" class="custom-file-input"
-												onchange="changeFile(this,'mainImgText');"> <label
+												onchange="changeFile(this,'mainImgText','Main');"> <label
 												class="custom-file-label" for="validatedCustomFile"
 												id="mainImgText">Choose file...</label>
 										</div>
+										<br /> <img id="mainImgMain"
+											src="resources/image/background.jpg"
+											style="width: 1000px; height: 300px;">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -100,10 +108,13 @@
 									<div class="col-sm-9">
 										<div class="custom-file">
 											<input type="file" name="ImgDetail" class="custom-file-input"
-												onchange="changeFile(this,'detailImgText');"> <label
-												class="custom-file-label" for="validatedCustomFile"
+												onchange="changeFile(this,'detailImgText','Sub');">
+											<label class="custom-file-label" for="validatedCustomFile"
 												id="detailImgText">Choose file...</label>
 										</div>
+										<br /> <img id="mainImgSub"
+											src="resources/image/background.jpg"
+											style="width: 1000px; height: 300px;">
 									</div>
 								</div>
 								<div class="form-group row">

@@ -21,7 +21,7 @@ public class UtilFile {
 		String chk = "mainImg";
 		if (check == true)
 			chk = "detailImg";
-		String path = context.getRealPath("/") + "\\src\\main\\webapp\\resources\\image\\" + chk + "\\";
+		String path = context.getRealPath("/") + "\\src\\main\\webapp\\resources\\image\\front\\images\\" + chk + "\\";
 		path = path.replace("wtpwebapps", "webapps").replace("\\spring_shopping_pjt\\",
 				"\\spring_shopping\\spring_shopping_pjt\\");
 		OutputStream out = null;

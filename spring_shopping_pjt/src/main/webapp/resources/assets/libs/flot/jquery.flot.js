@@ -51,7 +51,7 @@ Licensed under the MIT license.
 
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
-    // A shim to provide 'detach' to jQuery versions prior to 1.4.  Using a DOM
+    // A shim to provide 'detach' to jQuery versions prior to 1.4. Using a DOM
     // operation produces the same effect as detach, i.e. removing the element
     // without touching its jQuery data.
 
@@ -67,7 +67,7 @@ Licensed under the MIT license.
         };
     }
 
-	///////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////
 	// The Canvas object is a wrapper around an HTML5 <canvas> tag.
 	//
 	// @constructor
@@ -105,11 +105,11 @@ Licensed under the MIT license.
 		var context = this.context = element.getContext("2d");
 
 		// Determine the screen's ratio of physical to device-independent
-		// pixels.  This is the ratio between the canvas width that the browser
+		// pixels. This is the ratio between the canvas width that the browser
 		// advertises and the number of pixels actually present in that space.
 
 		// The iPhone 4, for example, has a device-independent width of 320px,
-		// but its screen is actually 640px wide.  It therefore has a pixel
+		// but its screen is actually 640px wide. It therefore has a pixel
 		// ratio of 2, while most normal devices have a ratio of 1.
 
 		var devicePixelRatio = window.devicePixelRatio || 1,
@@ -171,16 +171,19 @@ Licensed under the MIT license.
 			this.height = height;
 		}
 
-		// Save the context, so we can reset in case we get replotted.  The
+		// Save the context, so we can reset in case we get replotted. The
 		// restore ensure that we're really back at the initial state, and
 		// should be safe even if we haven't saved the initial state yet.
 
 		context.restore();
 		context.save();
 
-		// Scale the coordinate space to match the display density; so even though we
-		// may have twice as many pixels, we still want lines and other drawing to
-		// appear at the same size; the extra pixels will just make them crisper.
+		// Scale the coordinate space to match the display density; so even
+		// though we
+		// may have twice as many pixels, we still want lines and other drawing
+		// to
+		// appear at the same size; the extra pixels will just make them
+		// crisper.
 
 		context.scale(pixelRatio, pixelRatio);
 	};
@@ -246,7 +249,7 @@ Licensed under the MIT license.
 	// Creates (if necessary) and returns the text overlay container.
 	//
 	// @param {string} classes String of space-separated CSS classes used to
-	//     uniquely identify the text layer.
+	// uniquely identify the text layer.
 	// @return {object} The jQuery-wrapped text-layer div.
 
 	Canvas.prototype.getTextLayer = function(classes) {
@@ -293,20 +296,20 @@ Licensed under the MIT license.
 	// The object looks like this:
 	//
 	// {
-	//     width: Width of the text's wrapper div.
-	//     height: Height of the text's wrapper div.
-	//     element: The jQuery-wrapped HTML div containing the text.
-	//     positions: Array of positions at which this text is drawn.
+	// width: Width of the text's wrapper div.
+	// height: Height of the text's wrapper div.
+	// element: The jQuery-wrapped HTML div containing the text.
+	// positions: Array of positions at which this text is drawn.
 	// }
 	//
 	// The positions array contains objects that look like this:
 	//
 	// {
-	//     active: Flag indicating whether the text should be visible.
-	//     rendered: Flag indicating whether the text is currently visible.
-	//     element: The jQuery-wrapped HTML div containing the text.
-	//     x: X coordinate at which to draw the text.
-	//     y: Y coordinate at which to draw the text.
+	// active: Flag indicating whether the text should be visible.
+	// rendered: Flag indicating whether the text is currently visible.
+	// element: The jQuery-wrapped HTML div containing the text.
+	// x: X coordinate at which to draw the text.
+	// y: Y coordinate at which to draw the text.
 	// }
 	//
 	// Each position after the first receives a clone of the original element.
@@ -319,12 +322,12 @@ Licensed under the MIT license.
 	// either returns the cached element or creates a new entry.
 	//
 	// @param {string} layer A string of space-separated CSS classes uniquely
-	//     identifying the layer containing this text.
+	// identifying the layer containing this text.
 	// @param {string} text Text string to retrieve info for.
 	// @param {(string|object)=} font Either a string of space-separated CSS
-	//     classes or a font-spec object, defining the text's font and style.
+	// classes or a font-spec object, defining the text's font and style.
 	// @param {number=} angle Angle at which to rotate the text, in degrees.
-	//     Angle is currently unused, it will be implemented in the future.
+	// Angle is currently unused, it will be implemented in the future.
 	// @param {number=} width Maximum width of the text before it wraps.
 	// @return {object} a text info object.
 
@@ -335,7 +338,8 @@ Licensed under the MIT license.
 		// Cast the value to a string, in case we were given a number or such
 
 		text = "" + text;
-
+		
+		
 		// If the font is a font-spec object, generate a CSS font definition
 
 		if (typeof font === "object") {
@@ -400,19 +404,19 @@ Licensed under the MIT license.
 	// result in its addition to the canvas on the next render pass.
 	//
 	// @param {string} layer A string of space-separated CSS classes uniquely
-	//     identifying the layer containing this text.
+	// identifying the layer containing this text.
 	// @param {number} x X coordinate at which to draw the text.
 	// @param {number} y Y coordinate at which to draw the text.
 	// @param {string} text Text string to draw.
 	// @param {(string|object)=} font Either a string of space-separated CSS
-	//     classes or a font-spec object, defining the text's font and style.
+	// classes or a font-spec object, defining the text's font and style.
 	// @param {number=} angle Angle at which to rotate the text, in degrees.
-	//     Angle is currently unused, it will be implemented in the future.
+	// Angle is currently unused, it will be implemented in the future.
 	// @param {number=} width Maximum width of the text before it wraps.
 	// @param {string=} halign Horizontal alignment of the text; either "left",
-	//     "center" or "right".
+	// "center" or "right".
 	// @param {string=} valign Vertical alignment of the text; either "top",
-	//     "middle" or "bottom".
+	// "middle" or "bottom".
 
 	Canvas.prototype.addText = function(layer, x, y, text, font, angle, width, halign, valign) {
 
@@ -478,14 +482,14 @@ Licensed under the MIT license.
 	// add back most or all of it later, as when redrawing axes, for example.
 	//
 	// @param {string} layer A string of space-separated CSS classes uniquely
-	//     identifying the layer containing this text.
+	// identifying the layer containing this text.
 	// @param {number=} x X coordinate of the text.
 	// @param {number=} y Y coordinate of the text.
 	// @param {string=} text Text string to remove.
 	// @param {(string|object)=} font Either a string of space-separated CSS
-	//     classes or a font-spec object, defining the text's font and style.
+	// classes or a font-spec object, defining the text's font and style.
 	// @param {number=} angle Angle at which the text is rotated, in degrees.
-	//     Angle is currently unused, it will be implemented in the future.
+	// Angle is currently unused, it will be implemented in the future.
 
 	Canvas.prototype.removeText = function(layer, x, y, text, font, angle) {
 		if (text == null) {
@@ -515,12 +519,12 @@ Licensed under the MIT license.
 		}
 	};
 
-	///////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////
 	// The top-level container for the entire plot.
 
     function Plot(placeholder, data_, options_, plugins) {
         // data is on the form:
-        //   [ series1, series2 ... ]
+        // [ series1, series2 ... ]
         // where series is either just the data as [ [x1, y1], [x2, y2], ... ]
         // or { data: [ [x1, y1], [x2, y2], ... ], label: "some label", ... }
 
@@ -532,33 +536,53 @@ Licensed under the MIT license.
                     show: true,
                     noColumns: 1, // number of colums in legend table
                     labelFormatter: null, // fn: string -> string
-                    labelBoxBorderColor: "#ccc", // border color for the little label boxes
-                    container: null, // container (as jQuery object) to put legend in, null means default on top of graph
-                    position: "ne", // position of default legend container within plot
-                    margin: 5, // distance from grid edge to default legend container within plot
+                    labelBoxBorderColor: "#ccc", // border color for the
+													// little label boxes
+                    container: null, // container (as jQuery object) to put
+										// legend in, null means default on top
+										// of graph
+                    position: "ne", // position of default legend container
+									// within plot
+                    margin: 5, // distance from grid edge to default legend
+								// container within plot
                     backgroundColor: null, // null means auto-detect
                     backgroundOpacity: 0.85, // set to 0 to avoid background
                     sorted: null    // default to no legend sorting
                 },
                 xaxis: {
-                    show: null, // null = auto-detect, true = always, false = never
+                    show: null, // null = auto-detect, true = always, false =
+								// never
                     position: "bottom", // or "top"
                     mode: null, // null or "time"
-                    font: null, // null (derived from CSS in placeholder) or object like { size: 11, lineHeight: 13, style: "italic", weight: "bold", family: "sans-serif", variant: "small-caps" }
+                    font: null, // null (derived from CSS in placeholder) or
+								// object like { size: 11, lineHeight: 13,
+								// style: "italic", weight: "bold", family:
+								// "sans-serif", variant: "small-caps" }
                     color: null, // base color, labels, ticks
-                    tickColor: null, // possibly different color of ticks, e.g. "rgba(0,0,0,0.15)"
-                    transform: null, // null or f: number -> number to transform axis
-                    inverseTransform: null, // if transform is set, this should be the inverse function
-                    min: null, // min. value to show, null means set automatically
-                    max: null, // max. value to show, null means set automatically
-                    autoscaleMargin: null, // margin in % to add if auto-setting min/max
-                    ticks: null, // either [1, 3] or [[1, "a"], 3] or (fn: axis info -> ticks) or app. number of ticks for auto-ticks
+                    tickColor: null, // possibly different color of ticks,
+										// e.g. "rgba(0,0,0,0.15)"
+                    transform: null, // null or f: number -> number to
+										// transform axis
+                    inverseTransform: null, // if transform is set, this should
+											// be the inverse function
+                    min: null, // min. value to show, null means set
+								// automatically
+                    max: null, // max. value to show, null means set
+								// automatically
+                    autoscaleMargin: null, // margin in % to add if
+											// auto-setting min/max
+                    ticks: null, // either [1, 3] or [[1, "a"], 3] or (fn:
+									// axis info -> ticks) or app. number of
+									// ticks for auto-ticks
                     tickFormatter: null, // fn: number -> string
                     labelWidth: null, // size of tick labels in pixels
                     labelHeight: null,
-                    reserveSpace: null, // whether to reserve space even if axis isn't shown
-                    tickLength: null, // size in pixels of ticks, or "full" for whole line
-                    alignTicksWithAxis: null, // axis number or null for no sync
+                    reserveSpace: null, // whether to reserve space even if axis
+										// isn't shown
+                    tickLength: null, // size in pixels of ticks, or "full"
+										// for whole line
+                    alignTicksWithAxis: null, // axis number or null for no
+												// sync
                     tickDecimals: null, // no. of decimals, null means auto
                     tickSize: null, // number or [number, "unit"]
                     minTickSize: null // number or [number, "unit"]
@@ -604,26 +628,32 @@ Licensed under the MIT license.
                 grid: {
                     show: true,
                     aboveData: false,
-                    color: "#545454", // primary color used for outline and labels
+                    color: "#545454", // primary color used for outline and
+										// labels
                     backgroundColor: null, // null for transparent, else color
                     borderColor: null, // set if different from the grid color
-                    tickColor: null, // color for the ticks, e.g. "rgba(0,0,0,0.15)"
+                    tickColor: null, // color for the ticks, e.g.
+										// "rgba(0,0,0,0.15)"
                     margin: 0, // distance from the canvas edge to the grid
                     labelMargin: 5, // in pixels
                     axisMargin: 8, // in pixels
                     borderWidth: 2, // in pixels
-                    minBorderMargin: null, // in pixels, null means taken from points radius
-                    markings: null, // array of ranges or fn: axes -> array of ranges
+                    minBorderMargin: null, // in pixels, null means taken from
+											// points radius
+                    markings: null, // array of ranges or fn: axes -> array of
+									// ranges
                     markingsColor: "#f4f4f4",
                     markingsLineWidth: 2,
                     // interactive stuff
                     clickable: false,
                     hoverable: false,
                     autoHighlight: true, // highlight in case mouse is near
-                    mouseActiveRadius: 10 // how far the mouse can be away to activate an item
+                    mouseActiveRadius: 10 // how far the mouse can be away to
+											// activate an item
                 },
                 interaction: {
-                    redrawOverlayInterval: 1000/60 // time between updates, -1 means in same flow
+                    redrawOverlayInterval: 1000/60 // time between updates, -1
+													// means in same flow
                 },
                 hooks: {}
             },
@@ -750,7 +780,7 @@ Licensed under the MIT license.
 
             $.extend(true, options, opts);
 
-            // $.extend merges arrays, rather than replacing them.  When less
+            // $.extend merges arrays, rather than replacing them. When less
             // colors are provided than the size of the default palette, we
             // end up with those colors plus the remaining defaults, which is
             // not expected behavior; avoid it by replacing them here.
@@ -764,9 +794,11 @@ Licensed under the MIT license.
             if (options.yaxis.color == null)
                 options.yaxis.color = $.color.parse(options.grid.color).scale('a', 0.22).toString();
 
-            if (options.xaxis.tickColor == null) // grid.tickColor for back-compatibility
+            if (options.xaxis.tickColor == null) // grid.tickColor for
+													// back-compatibility
                 options.xaxis.tickColor = options.grid.tickColor || options.xaxis.color;
-            if (options.yaxis.tickColor == null) // grid.tickColor for back-compatibility
+            if (options.yaxis.tickColor == null) // grid.tickColor for
+													// back-compatibility
                 options.yaxis.tickColor = options.grid.tickColor || options.yaxis.color;
 
             if (options.grid.borderColor == null)
@@ -1321,10 +1353,15 @@ Licensed under the MIT license.
                 }).remove();
 
             if (placeholder.css("position") == 'static')
-                placeholder.css("position", "relative"); // for positioning labels and overlay
+                placeholder.css("position", "relative"); // for positioning
+															// labels and
+															// overlay
 
             surface = new Canvas("flot-base", placeholder);
-            overlay = new Canvas("flot-overlay", placeholder); // overlay canvas for interactive features
+            overlay = new Canvas("flot-overlay", placeholder); // overlay
+																// canvas for
+																// interactive
+																// features
 
             ctx = surface.context;
             octx = overlay.context;
@@ -1352,8 +1389,8 @@ Licensed under the MIT license.
 
                 // Use bind, rather than .mouseleave, because we officially
                 // still support jQuery 1.2.6, which doesn't define a shortcut
-                // for mouseenter or mouseleave.  This was a bug/oversight that
-                // was fixed somewhere around 1.3.x.  We can return to using
+                // for mouseenter or mouseleave. This was a bug/oversight that
+                // was fixed somewhere around 1.3.x. We can return to using
                 // .mouseleave when we drop support for 1.2.6.
 
                 eventHolder.bind("mouseleave", onMouseLeave);
@@ -1419,15 +1456,21 @@ Licensed under the MIT license.
                 legacyStyles = axis.direction + "Axis " + axis.direction + axis.n + "Axis",
                 layer = "flot-" + axis.direction + "-axis flot-" + axis.direction + axis.n + "-axis " + legacyStyles,
                 font = opts.font || "flot-tick-label tickLabel";
-
-            for (var i = 0; i < ticks.length; ++i) {
+            
+            // 차트 하단 부분
+            
+            for (var i = 0; i < ticks.length ; ++i) {
 
                 var t = ticks[i];
 
-                if (!t.label)
-                    continue;
-
-                var info = surface.getTextInfo(layer, t.label, font, null, maxWidth);
+                if (i >= 10)
+                    break;
+                else
+                {
+                	t.label = parseInt(t.label);
+               	}
+               
+                var info = surface.getTextInfo(layer, parseInt(t.label), font, null, maxWidth);
 
                 labelWidth = Math.max(labelWidth, info.width);
                 labelHeight = Math.max(labelHeight, info.height);
@@ -1742,14 +1785,17 @@ Licensed under the MIT license.
             axis.tickDecimals = Math.max(0, maxDec != null ? maxDec : dec);
             axis.tickSize = opts.tickSize || size;
 
-            // Time mode was moved to a plug-in in 0.8, and since so many people use it
-            // we'll add an especially friendly reminder to make sure they included it.
+            // Time mode was moved to a plug-in in 0.8, and since so many people
+			// use it
+            // we'll add an especially friendly reminder to make sure they
+			// included it.
 
             if (opts.mode == "time" && !axis.tickGenerator) {
                 throw new Error("Time mode requires the flot.time plugin.");
             }
 
-            // Flot supports base-10 axes; any other mode else is handled by a plug-in,
+            // Flot supports base-10 axes; any other mode else is handled by a
+			// plug-in,
             // like flot.time.js.
 
             if (!axis.tickGenerator) {
@@ -1776,8 +1822,10 @@ Licensed under the MIT license.
 					var factor = axis.tickDecimals ? Math.pow(10, axis.tickDecimals) : 1;
 					var formatted = "" + Math.round(value * factor) / factor;
 
-					// If tickDecimals was specified, ensure that we have exactly that
-					// much precision; otherwise default to the value's own precision.
+					// If tickDecimals was specified, ensure that we have
+					// exactly that
+					// much precision; otherwise default to the value's own
+					// precision.
 
 					if (axis.tickDecimals != null) {
 						var decimal = formatted.indexOf(".");
@@ -2135,7 +2183,8 @@ Licensed under the MIT license.
 
             // draw border
             if (bw) {
-                // If either borderWidth or borderColor is an object, then draw the border
+                // If either borderWidth or borderColor is an object, then draw
+				// the border
                 // line by line instead of as one rectangle
                 bc = options.grid.borderColor;
                 if(typeof bw == "object" || typeof bc == "object") {
@@ -2538,9 +2587,9 @@ Licensed under the MIT license.
                 radius = series.points.radius,
                 symbol = series.points.symbol;
 
-            // If the user sets the line width to 0, we change it to a very 
+            // If the user sets the line width to 0, we change it to a very
             // small value. A line width of 0 seems to force the default of 1.
-            // Doing the conditional here allows the shadow setting to still be 
+            // Doing the conditional here allows the shadow setting to still be
             // optional even with a lineWidth of 0.
 
             if( lw == 0 )
@@ -2686,7 +2735,8 @@ Licensed under the MIT license.
             ctx.save();
             ctx.translate(plotOffset.left, plotOffset.top);
 
-            // FIXME: figure out a way to add shadows (for instance along the right edge)
+            // FIXME: figure out a way to add shadows (for instance along the
+			// right edge)
             ctx.lineWidth = series.bars.lineWidth;
             ctx.strokeStyle = series.color;
 
@@ -2737,7 +2787,8 @@ Licensed under the MIT license.
             var fragments = [], entries = [], rowStarted = false,
                 lf = options.legend.labelFormatter, s, label;
 
-            // Build a list of legend entries, with each having a label and a color
+            // Build a list of legend entries, with each having a label and a
+			// color
 
             for (var i = 0; i < series.length; ++i) {
                 s = series[i];
@@ -2763,7 +2814,8 @@ Licensed under the MIT license.
                     var ascending = options.legend.sorted != "descending";
                     entries.sort(function(a, b) {
                         return a.label == b.label ? 0 : (
-                            (a.label < b.label) != ascending ? 1 : -1   // Logical XOR
+                            (a.label < b.label) != ascending ? 1 : -1   // Logical
+																		// XOR
                         );
                     });
                 }
@@ -2852,7 +2904,8 @@ Licensed under the MIT license.
                     axisx = s.xaxis,
                     axisy = s.yaxis,
                     points = s.datapoints.points,
-                    mx = axisx.c2p(mouseX), // precompute some stuff to make the loop faster
+                    mx = axisx.c2p(mouseX), // precompute some stuff to make the
+											// loop faster
                     my = axisy.c2p(mouseY),
                     maxx = maxDistance / axisx.scale,
                     maxy = maxDistance / axisy.scale;
@@ -2878,7 +2931,8 @@ Licensed under the MIT license.
                             continue;
 
                         // We have to calculate distances in pixels, not in
-                        // data units, because the scales of the axes may be different
+                        // data units, because the scales of the axes may be
+						// different
                         var dx = Math.abs(axisx.p2c(x) - mouseX),
                             dy = Math.abs(axisy.p2c(y) - mouseY),
                             dist = dx * dx + dy * dy; // we save the sqrt
@@ -3155,9 +3209,10 @@ Licensed under the MIT license.
     // Add the plot function to the top level of the jQuery object
 
     $.plot = function(placeholder, data, options) {
-        //var t0 = new Date();
+        // var t0 = new Date();
         var plot = new Plot($(placeholder), data, options, $.plot.plugins);
-        //(window.console ? console.log : alert)("time used (msecs): " + ((new Date()).getTime() - t0.getTime()));
+        // (window.console ? console.log : alert)("time used (msecs): " + ((new
+		// Date()).getTime() - t0.getTime()));
         return plot;
     };
 

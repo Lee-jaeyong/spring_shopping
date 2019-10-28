@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.shopping.DAO.ChartDAO">
+		<select id="getNowDayChart" resultType="hashmap">
+		SELECT LEFT(o_date,13) 'nowDay', SUM(o_i_price) 'timeSumValue'
+		FROM s_order
+		GROUP BY nowDay
+		HAVING LEFT(NOW(),10) = LEFT(nowDay,10)
+	</select>
+</mapper>

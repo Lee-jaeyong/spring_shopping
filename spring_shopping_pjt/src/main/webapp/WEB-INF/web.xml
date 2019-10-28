@@ -8,19 +8,15 @@
 		<param-value>/WEB-INF/spring/database-Context.xml</param-value>
 	</context-param>
 
-<!--
-	 <context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/shopping-context.xml</param-value>
-	</context-param>
- -->
- 
+	<!-- <context-param> <param-name>contextConfigLocation</param-name> <param-value>/WEB-INF/spring/shopping-context.xml</param-value> 
+		</context-param> -->
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
 	<servlet>
-		<servlet-name>appServlet</servlet-name>
+		<servlet-name>shopping</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
 		<init-param>
@@ -31,19 +27,8 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
+		<servlet-name>shopping</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>GetItemListServlet</display-name>
-		<servlet-name>GetItemListServlet</servlet-name>
-		<servlet-class>com.shop.shopping.itemAjax.GetItemListServlet
-		</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GetItemListServlet</servlet-name>
-		<url-pattern>/GetItemListServlet</url-pattern>
 	</servlet-mapping>
 
 	<filter>

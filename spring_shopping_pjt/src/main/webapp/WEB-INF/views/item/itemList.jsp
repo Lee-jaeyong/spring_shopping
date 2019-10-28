@@ -22,6 +22,7 @@
 						if (data.result.length > 0) {
 							for (var i = 0; i < data.result.length; i++) {
 								html += "<tr>";
+								html += "<td width='130px;' align='center'><img src='resources/image/" + data.result[i].img_path + "' style='height:100px;'></td>";
 								html += "<td>" + data.result[i].i_idx + "</td>";
 								html += "<td>" + data.result[i].i_name
 										+ "</td>";
@@ -151,6 +152,7 @@
 								class="table table-striped table-bordered">
 								<thead>
 									<tr>
+										<th>상품 이미지</th>
 										<th>상품번호</th>
 										<th>상품명</th>
 										<th>가격</th>

@@ -51,10 +51,10 @@ public class ShoppingController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("i_name", itemVO.getI_name());
 		map.put("i_price", itemVO.getI_price());
-		map.put("i_deteil", detailImg);
+		map.put("i_deteil", detailImg.substring(detailImg.indexOf("front")));
 		map.put("i_info", itemVO.getI_info());
 		map.put("c_idx", itemVO.getC_categoryNum());
-		map.put("i_main", mainImg);
+		map.put("i_main", mainImg.substring(mainImg.indexOf("front")));
 		map.put("cs_idx", itemVO.getCs_categoryNum());
 		shoppingService.addItem(map);
 		return "redirect:itemList.do";

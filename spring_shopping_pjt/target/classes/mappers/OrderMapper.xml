@@ -18,5 +18,4 @@
 		select count(o_idx) from
 		s_order where o_ordername like #{search}
 	</select>
-
 </mapper>
