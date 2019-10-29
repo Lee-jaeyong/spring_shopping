@@ -8,6 +8,27 @@
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
+	function stockPage(i_idx) {
+		$
+				.ajax({
+					url : "<c:url value='/item/stockItem'/>",
+					dataType : "json",
+					type : "post",
+					data : {
+						"i_idx" : i_idx
+					},
+					success : function(data) {
+						var html = "";
+						for (var i = 0; i < data.length; i++)
+							html += data[i].op_info_color
+									+ "["
+									+ data[i].op_info_size
+									+ "] : <input type='text' class='form-control mb-2 mr-sm-2' value='"+data[i].st_i_stock+"'><br/>";
+						$("#stockArea").html(html);
+					}
+				});
+	}
+
 	function delete_Item(i_idx) {
 		$.ajax({
 			url : "<c:url value='/item/deleteItem'/>",
@@ -27,7 +48,8 @@
 
 	function update_Item(i_idx) {
 		$("#updateI_idx").val(i_idx);
-		$("form[name='updateItem']").attr("method", "post").attr("action", "./updateItem.do").submit();
+		$("form[name='updateItem']").attr("method", "post").attr("action",
+				"./updateItem.do").submit();
 	}
 
 	function pageMove(page) {
@@ -76,6 +98,9 @@
 										+ "</td>";
 								html += "<td>" + data.result[i].i_date
 										+ "</td>";
+								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-info' onclick='stockPage("
+										+ data.result[i].i_idx
+										+ ")' data-toggle='modal' data-target='#myModal'>재고 관리</button></td>";
 								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-primary' onclick='update_Item("
 										+ data.result[i].i_idx
 										+ ")'>수정</button></td>";
@@ -211,6 +236,7 @@
 										<th>상품 등록일</th>
 										<th></th>
 										<th></th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody id="itemSection">
@@ -229,5 +255,29 @@
 	<script>
 		window.onload = pageMove(0);
 	</script>
+	<!-- The Modal -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">재고 관리</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form class="form-inline">
+						<div id="stockArea"></div>
+					</form>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">저장</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </body>
 </html>

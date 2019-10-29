@@ -6,8 +6,24 @@
 <script>
 	function submitPage(type) {
 		if (type === 'add') {
-			$("#itemInfo").attr("action", "./addItemExecute.do").attr("method",
-					"post").submit();
+			if ($("input[name='i_name']").val().trim() === '') {
+				alert("상품명을 입력해주세요.");
+			} else if ($("input[name='i_price']").val().trim() === '') {
+				alert("상품 가격을 입력해주세요.");
+			} else if (isNaN($("input[name='i_price']").val())) {
+				alert("상품 가격을 다시입력해주세요.");
+			} else if ($("#cs_categoryNum").val() === '') {
+				alert("(소)카테고리를 선택해주세요.");
+			} else if ($("input[name='ImgMain']").val().trim() === '') {
+				alert("대표이미지를 선택해주세요.");
+			} else if ($("input[name='ImgDetail']").val().trim() === '') {
+				alert("상세페이지를 선택해주세요.");
+			} else if ($("#i_info").val().trim() === '') {
+				alert("상세 정보를 입력해주세요.");
+			} else {
+				$("#itemInfo").attr("action", "./addItemExecute.do").attr(
+						"method", "post").submit();
+			}
 		} else {
 			$("#itemInfo").attr("action", "./updateItemExecute.do").attr(
 					"method", "post").submit();
@@ -78,7 +94,7 @@
 										class="col-sm-3 text-right control-label col-form-label">*상품명</label>
 									<div class="col-sm-9">
 										<input type="text" name="i_name" class="form-control"
-											value="${itemVO.i_name} ">
+											value="${itemVO.i_name} " id="iName">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -101,11 +117,11 @@
 														<c:when
 															test="${categoryList.c_categoryName eq itemVO.c_categoryName}">
 															<option selected="selected"
-																value="${categoryList.cn_idx }">${categoryList.c_categoryName }</option>
+																value="${categoryList.cn_idx }">${categoryList.c_categoryName }(${categoryList.c_categoryCount })</option>
 														</c:when>
 														<c:when
 															test="${categoryList.c_categoryName ne itemVO.c_categoryName}">
-															<option value="${categoryList.cn_idx }">${categoryList.c_categoryName }</option>
+															<option value="${categoryList.cn_idx }">${categoryList.c_categoryName }(${categoryList.c_categoryCount })</option>
 														</c:when>
 													</c:choose>
 												</c:forEach>
@@ -114,9 +130,8 @@
 										<label for="cono1"
 											class="col-sm-3 text-right control-label col-form-label">(소)분류</label>
 										<div class="col-sm-3" id="cs_category">
-											<select class="form-control">
-												<option disabled="disabled" selected="selected">*대분류를
-													선택해주세요</option>
+											<select class="form-control" id="cs_categoryNum">
+												<option selected="selected" value="">*대분류를 선택해주세요</option>
 											</select>
 										</div>
 									</div>
@@ -174,7 +189,7 @@
 										class="col-sm-3 text-right control-label col-form-label">상품
 										정보</label>
 									<div class="col-sm-9">
-										<textarea name="i_info" class="form-control">${ itemVO.i_info}</textarea>
+										<textarea name="i_info" id="i_info" class="form-control">${ itemVO.i_info}</textarea>
 									</div>
 								</div>
 							</div>

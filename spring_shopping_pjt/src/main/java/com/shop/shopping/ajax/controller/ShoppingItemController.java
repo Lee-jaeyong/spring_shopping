@@ -22,7 +22,7 @@ import com.shop.shopping.service.ShoppingService;
 import com.shop.shopping.util.ExcelUpload;
 
 @Controller
-@RequestMapping(value="/item")
+@RequestMapping(value = "/item")
 public class ShoppingItemController {
 
 	@Autowired
@@ -88,5 +88,10 @@ public class ShoppingItemController {
 		List<HashMap<String, Object>> list = shoppingService.getItemlistAll();
 		mav.addObject("list", list);
 		return mav;
+	}
+
+	@RequestMapping(value = "/stockItem", method = RequestMethod.POST)
+	public @ResponseBody String stockItem(@RequestParam("i_idx") String i_idx) throws Exception {
+		return new ObjectMapper().writeValueAsString(shoppingService.stockItem(Integer.parseInt(i_idx)));
 	}
 }

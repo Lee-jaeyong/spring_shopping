@@ -43,4 +43,8 @@ public class ShoppingService {
 	public boolean updateItem(Map<String, Object> map) throws Exception {
 		return shoppingDAO.updateItem(map);
 	}
+
+	public List<HashMap<String, Object>> stockItem(int i_idx) throws Exception {
+		return shoppingDAO.stockItem(i_idx);
+	}
 }

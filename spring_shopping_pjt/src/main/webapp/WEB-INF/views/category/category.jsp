@@ -59,7 +59,9 @@
 									+ "</td>";
 							categorySection += "</tr>";
 							cs_categorySection += "<option value='"+data[i].cn_idx+"'>"
-									+ data[i].c_categoryName + "</option>";
+									+ data[i].c_categoryName
+									+ "("
+									+ data[i].c_categoryCount + ")</option>";
 						}
 
 						cs_categorySection += "</select>";

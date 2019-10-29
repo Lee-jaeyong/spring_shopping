@@ -59,6 +59,14 @@
 		= s_category.c_i_idx AND s_item.i_idx = s_small_category.cs_i_idx
 	</select>
 
+	<select id="stockItem" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT i_idx,op_info_color,op_info_size,st_i_stock
+		FROM s_item,s_option,s_stock
+		WHERE s_option.op_i_idx = s_item.i_idx AND s_stock.st_op_idx =
+		s_option.op_idx and i_idx = #{i_idx}
+	</select>
+
 	<insert id="addItem" parameterType="hashmap">
 		insert into s_item values
 		(NULL,#{i_name},#{i_price},#{i_deteil},0,#{i_info},0,now());
@@ -85,7 +93,9 @@
 
 	<update id="updateItem" parameterType="hashmap">
 		update s_item
-		set i_name = #{i_name}, i_price = #{i_price}, i_info = #{i_info}
-		where i_idx = #{i_idx};
+		set i_name =
+		#{i_name}, i_price = #{i_price}, i_info = #{i_info}
+		where i_idx =
+		#{i_idx};
 	</update>
 </mapper>
