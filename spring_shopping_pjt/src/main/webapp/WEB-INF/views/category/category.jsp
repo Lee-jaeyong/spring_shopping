@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	function addcategory() {
 		$.ajax({
-			url : "<c:url value='/addCcategory'/>",
+			url : "<c:url value='/category/addCcategory'/>",
 			dataType : "json",
 			data : {
 				"category" : $("#CcateogryValue").val()
@@ -26,7 +26,7 @@
 
 	function addCsCategory() {
 		$.ajax({
-			url : "<c:url value='/addCscategory'/>",
+			url : "<c:url value='/category/addCscategory'/>",
 			dataType : "json",
 			data : {
 				"category" : $("#CScateogryValue").val(),
@@ -46,7 +46,7 @@
 	function categoryC_list(category) {
 		$
 				.ajax({
-					url : "<c:url value='/get"+category+"List'/>",
+					url : "<c:url value='/category/get"+category+"List'/>",
 					dataType : "json",
 					success : function(data) {
 						var categorySection = "";
@@ -73,7 +73,7 @@
 	function categoryCS_list() {
 		$
 				.ajax({
-					url : "<c:url value='/getCsCategoryList'/>",
+					url : "<c:url value='/category/getCsCategoryList'/>",
 					dataType : "json",
 					data : {
 						"c_category" : $("#CcategoryVal").val()

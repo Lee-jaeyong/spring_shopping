@@ -4,11 +4,37 @@
 <!DOCTYPE html>
 <html dir="ltr">
 <script type="text/javascript">
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	function delete_Item(i_idx) {
+		$.ajax({
+			url : "<c:url value='/item/deleteItem'/>",
+			dataType : "json",
+			data : {
+				"i_idx" : i_idx
+			},
+			success : function(data) {
+				if (data.result === 'true')
+					alert("삭제 완료");
+				else
+					alert("삭제 중 예기치 않은 오류가 발생했습니다.");
+				pageMove(0);
+			}
+		});
+	}
+
+	function update_Item(i_idx) {
+		$("#updateI_idx").val(i_idx);
+		$("form[name='updateItem']").attr("method", "post").attr("action", "./updateItem.do").submit();
+	}
+
 	function pageMove(page) {
 		$("#nowPage").val(page);
 		$
 				.ajax({
-					url : "<c:url value='/getItemList'/>",
+					url : "<c:url value='/item/getItemList'/>",
 					dataType : "json",
 					data : {
 						"search" : $("#searchItem").val(),
@@ -39,8 +65,9 @@
 								html += "<td width='130px;' align='center'><img src='resources/image/" + data.result[i].img_path + "' style='height:100px; width:130px;'></td>";
 								html += "<td>" + data.result[i].i_idx + "</td>";
 								html += "<td>" + name + "</td>";
-								html += "<td>" + data.result[i].i_price
-										+ "</td>";
+								html += "<td>"
+										+ numberWithCommas(data.result[i].i_price)
+										+ "￦</td>";
 								html += "<td>" + data.result[i].img_path
 										+ "</td>";
 								html += "<td>" + data.result[i].c_categoryName
@@ -49,8 +76,12 @@
 										+ "</td>";
 								html += "<td>" + data.result[i].i_date
 										+ "</td>";
-								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-primary'>수정</button></td>";
-								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-success'>삭제</button></td>";
+								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-primary' onclick='update_Item("
+										+ data.result[i].i_idx
+										+ ")'>수정</button></td>";
+								html += "<td align='center' width='20px;'><button type='button' class='btn btn-outline-success' onclick='delete_Item("
+										+ data.result[i].i_idx
+										+ ")'>삭제</button></td>";
 								html += "</tr>";
 							}
 
@@ -94,6 +125,9 @@
 </script>
 <%@include file="../include/pageHead.jsp"%>
 <body>
+	<form name="updateItem">
+		<input type="hidden" name="i_idx" id="updateI_idx">
+	</form>
 	<div class="preloader">
 		<div class="lds-ripple">
 			<div class="lds-pos"></div>
@@ -156,7 +190,7 @@
 									<br />
 									<div class="card-body">
 										<button class="btn btn-success"
-											onclick="location.href='./excelDown';">엑셀 다운로드</button>
+											onclick="location.href='./item/excelDown';">엑셀 다운로드</button>
 									</div>
 								</div>
 							</div>

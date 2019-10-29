@@ -28,7 +28,7 @@ public class UtilFile {
 		PrintWriter printWriter = null;
 		try {
 			byte[] bytes = uploadFile.getBytes();
-			out = new FileOutputStream(path + uploadFile.getOriginalFilename());
+			out = new FileOutputStream(path + uploadFile.getOriginalFilename().replace("jpg", "jpeg"));
 			out.write(bytes);
 		} catch (Exception e) {
 			e.printStackTrace();

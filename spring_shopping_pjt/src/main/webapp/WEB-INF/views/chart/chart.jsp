@@ -80,7 +80,7 @@
 	function plot1() {
 		$
 				.ajax({
-					url : "<c:url value='/getChartTime'/>",
+					url : "<c:url value='/chart/getChartTime'/>",
 					dataType : "json",
 					success : function(data) {
 						var ctx = document.getElementById("line-chart")

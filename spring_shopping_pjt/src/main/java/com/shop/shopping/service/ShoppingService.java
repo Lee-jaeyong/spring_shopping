@@ -31,4 +31,16 @@ public class ShoppingService {
 	public List<HashMap<String, Object>> getItemlistAll() throws Exception {
 		return shoppingDAO.getItemlistAll();
 	}
+
+	public boolean deleteItem(int i_idx) throws Exception {
+		return shoppingDAO.deleteItem(i_idx);
+	}
+
+	public ItemVO selectItem(int i_idx) throws Exception {
+		return shoppingDAO.selectItem(i_idx);
+	}
+
+	public boolean updateItem(Map<String, Object> map) throws Exception {
+		return shoppingDAO.updateItem(map);
+	}
 }

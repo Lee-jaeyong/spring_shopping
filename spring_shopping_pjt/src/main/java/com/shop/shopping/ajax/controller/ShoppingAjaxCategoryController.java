@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.shopping.service.CategoryService;
 
 @Controller
+@RequestMapping(value="/category")
 public class ShoppingAjaxCategoryController {
 
 	@Autowired

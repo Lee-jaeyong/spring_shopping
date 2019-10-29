@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.shop.shopping.DAO.ShoppingDAO">
+	<select id="selectItem" resultType="ItemVO">
+		SELECT DISTINCT
+		(i_idx),i_name, c_categoryName,
+		cs_categoryName, i_price, i_info
+		,i_detailImg,img_path, i_hit,i_date
+		FROM s_item,
+		s_mainimg, s_category,
+		s_small_category,s_categoryName,s_small_categoryName
+		WHERE s_item.i_idx
+		= s_mainimg.img_idx AND s_categoryName.cn_idx = s_category.c_idx AND
+		s_small_category.cs_idx = s_small_categoryName.csn_idx
+		AND s_item.i_idx
+		= s_category.c_i_idx AND s_item.i_idx = s_small_category.cs_i_idx
+		AND
+		i_idx = #{i_idx};
+	</select>
+
 	<select id="getItemlist" parameterType="hashmap"
 		resultType="hashmap">
 		SELECT DISTINCT (i_idx),i_name, c_categoryName,
@@ -27,9 +44,11 @@
 	</select>
 
 	<select id="getItemlistAll" resultType="hashmap">
-		SELECT DISTINCT (i_idx),i_name, c_categoryName,
+		SELECT DISTINCT
+		(i_idx),i_name, c_categoryName,
 		cs_categoryName, i_price,
-		img_path, i_hit,i_date
+		img_path,
+		i_hit,i_date
 		FROM s_item,
 		s_mainimg, s_category,
 		s_small_category,s_categoryName,s_small_categoryName
@@ -50,4 +69,23 @@
 		insert into s_small_category values
 		(#{c_idx},#{cs_idx},NULL);
 	</insert>
+
+	<delete id="deleteItem" parameterType="int">
+		delete from s_item
+		where
+		i_idx = #{i_idx};
+		delete from s_category
+		where c_i_idx = #{i_idx};
+		delete from s_mainimg
+		where img_idx = #{i_idx};
+		delete from
+		s_small_category
+		where cs_i_idx = #{i_idx};
+	</delete>
+
+	<update id="updateItem" parameterType="hashmap">
+		update s_item
+		set i_name = #{i_name}, i_price = #{i_price}, i_info = #{i_info}
+		where i_idx = #{i_idx};
+	</update>
 </mapper>

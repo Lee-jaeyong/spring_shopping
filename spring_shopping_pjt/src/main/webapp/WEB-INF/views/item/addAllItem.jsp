@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	function excelUpload() {
 		$.ajax({
-			url : "<c:url value='/excelUpload'/>",
+			url : "<c:url value='/item/excelUpload'/>",
 			dataType : "json",
 			data : {
 				"path" : $("#excelUpload").val()
@@ -24,7 +24,7 @@
 	function excelChange(file) {
 		$("#excelText").html(file.value);
 		$.ajax({
-			url : "<c:url value='/excelList'/>",
+			url : "<c:url value='/item/excelList'/>",
 			dataType : "json",
 			data : {
 				"path" : $("#excelUpload").val()

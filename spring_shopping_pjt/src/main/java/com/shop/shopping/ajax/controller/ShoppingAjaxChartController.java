@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.shopping.DAO.ChartDAO;
 
 @Controller
+@RequestMapping(value="/chart")
 public class ShoppingAjaxChartController {
 
 	@Autowired

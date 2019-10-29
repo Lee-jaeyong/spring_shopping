@@ -22,6 +22,7 @@ import com.shop.shopping.service.ShoppingService;
 import com.shop.shopping.util.ExcelUpload;
 
 @Controller
+@RequestMapping(value="/item")
 public class ShoppingItemController {
 
 	@Autowired
@@ -48,6 +49,16 @@ public class ShoppingItemController {
 		getJson.append(",\"startBlock\":\"" + startBlock + "\",\"endBlock\":\"" + endBlock + "\",\"totalBlock\":\""
 				+ totalBlockCount + "\"}");
 		return getJson.toString();
+	}
+
+	@RequestMapping(value = "/deleteItem", method = RequestMethod.GET)
+	public @ResponseBody String deleteItem(@RequestParam("i_idx") String i_idx) {
+		try {
+			shoppingService.deleteItem(Integer.parseInt(i_idx));
+			return "{\"result\":\"true\"}";
+		} catch (Exception e) {
+			return "{\"result\":\"false\"}";
+		}
 	}
 
 	@RequestMapping(value = "/excelList", produces = "text/plain;charset=UTF-8")

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class ShoppingController {
 	@Inject
 	UtilFile utilFile;
 
+	@Autowired
+	ServletContext context;
+
 	@RequestMapping(value = "/itemList.do", method = RequestMethod.GET)
 	public String itemList() throws Exception {
 		return "item/itemList";
@@ -51,17 +55,43 @@ public class ShoppingController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("i_name", itemVO.getI_name());
 		map.put("i_price", itemVO.getI_price());
-		map.put("i_deteil", detailImg.substring(detailImg.indexOf("front")));
+		map.put("i_deteil", detailImg.substring(detailImg.indexOf("front")).replace("jpg", "jpeg"));
 		map.put("i_info", itemVO.getI_info());
 		map.put("c_idx", itemVO.getC_categoryNum());
-		map.put("i_main", mainImg.substring(mainImg.indexOf("front")));
+		map.put("i_main", mainImg.substring(mainImg.indexOf("front")).replace("jpg", "jpeg"));
 		map.put("cs_idx", itemVO.getCs_categoryNum());
 		shoppingService.addItem(map);
 		return "redirect:itemList.do";
 	}
-	
-	@RequestMapping(value ="/addAllItem.do", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addAllItem.do", method = RequestMethod.GET)
 	public String addAllItem() {
 		return "item/addAllItem";
+	}
+
+	@RequestMapping(value = "/updateItem.do", method = RequestMethod.POST)
+	public ModelAndView updateItem(@RequestParam("i_idx") String i_idx) throws NumberFormatException, Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("item/addItem");
+		mav.addObject("categoryList", categoryService.getC_Category());
+		mav.addObject("itemVO", shoppingService.selectItem(Integer.parseInt(i_idx)));
+		return mav;
+	}
+
+	@RequestMapping(value = "/updateItemExecute.do", method = RequestMethod.POST)
+	public String updateItemExecute(ItemVO itemVO, @RequestParam("ImgMain") MultipartFile ImgMain,
+			@RequestParam("ImgDetail") MultipartFile ImgDetail) throws Exception {
+		String mainImg = utilFile.fileUpload(false, ImgMain);
+		String detailImg = utilFile.fileUpload(true, ImgDetail);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("i_idx", itemVO.getI_idx());
+		map.put("i_name", itemVO.getI_name());
+		map.put("i_price", itemVO.getI_price());
+		map.put("i_deteil", detailImg.substring(detailImg.indexOf("front")).replace("jpg", "jpeg"));
+		map.put("i_info", itemVO.getI_info());
+		map.put("i_main", mainImg.substring(mainImg.indexOf("front")).replace("jpg", "jpeg"));
+		shoppingService.updateItem(map);
+		return "redirect:itemList.do";
 	}
 }

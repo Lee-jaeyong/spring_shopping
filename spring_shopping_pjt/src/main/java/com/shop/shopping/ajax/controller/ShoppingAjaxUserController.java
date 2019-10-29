@@ -16,6 +16,7 @@ import com.shop.shopping.VO.UserVO;
 import com.shop.shopping.service.UserService;
 
 @Controller
+@RequestMapping(value="/user")
 public class ShoppingAjaxUserController {
 
 	@Autowired

@@ -8,7 +8,7 @@
 		$("#nowPage").val(page);
 		$
 				.ajax({
-					url : "<c:url value='/getOrderList'/>",
+					url : "<c:url value='/order/getOrderList'/>",
 					dataType : "json",
 					data : {
 						"search" : $("#searchOrder").val(),

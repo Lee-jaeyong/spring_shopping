@@ -15,6 +15,7 @@ import com.shop.shopping.DAO.OrderDAO;
 import com.shop.shopping.VO.OrderVO;
 
 @Controller
+@RequestMapping(value="/order")
 public class ShoppingAjaxOrderController {
 
 	@Autowired
