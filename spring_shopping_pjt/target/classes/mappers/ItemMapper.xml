@@ -61,9 +61,12 @@
 
 	<select id="stockItem" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT i_idx,op_info_color,op_info_size,st_i_stock
-		FROM s_item,s_option,s_stock
-		WHERE s_option.op_i_idx = s_item.i_idx AND s_stock.st_op_idx =
+		SELECT
+		i_idx,op_info_color,op_info_size,st_i_stock,st_op_idx
+		FROM
+		s_item,s_option,s_stock
+		WHERE s_option.op_i_idx = s_item.i_idx AND
+		s_stock.st_op_idx =
 		s_option.op_idx and i_idx = #{i_idx}
 	</select>
 
@@ -76,6 +79,14 @@
 		(NULL,#{i_main});
 		insert into s_small_category values
 		(#{c_idx},#{cs_idx},NULL);
+	</insert>
+
+	<insert id="addColorAndSize" parameterType="hashmap">
+		INSERT INTO S_OPTION VALUES (Maxidx(),#{color},#{size},NULL);
+	</insert>
+
+	<insert id="addStock">
+		INSERT INTO S_STOCK VALUES (Maxidx(),0,NULL);
 	</insert>
 
 	<delete id="deleteItem" parameterType="int">
@@ -91,11 +102,27 @@
 		where cs_i_idx = #{i_idx};
 	</delete>
 
+	<delete id="deleteStock" parameterType="int">
+		DELETE FROM s_stock
+		WHERE st_i_idx = #{i_idx}
+	</delete>
+	
+	<delete id="deleteColorAndSize" parameterType="int">
+		DELETE FROM s_option
+		WHERE op_i_idx = #{i_idx}
+	</delete>
+
 	<update id="updateItem" parameterType="hashmap">
 		update s_item
 		set i_name =
 		#{i_name}, i_price = #{i_price}, i_info = #{i_info}
 		where i_idx =
 		#{i_idx};
+	</update>
+
+	<update id="updateStock" parameterType="hashmap">
+		UPDATE S_STOCK
+		SET ST_I_STOCK = #{input}
+		WHERE ST_OP_IDX = #{stockId}
 	</update>
 </mapper>

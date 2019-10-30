@@ -23,10 +23,37 @@
 							html += data[i].op_info_color
 									+ "["
 									+ data[i].op_info_size
-									+ "] : <input type='text' class='form-control mb-2 mr-sm-2' value='"+data[i].st_i_stock+"'><br/>";
+									+ "] : <input type='text' id='stock' name='"+data[i].st_op_idx+"' class='form-control mb-2 mr-sm-2' value='"+data[i].st_i_stock+"'><br/>";
 						$("#stockArea").html(html);
 					}
 				});
+	}
+
+	function saveStock() {
+		var stock = $("input[id='stock']");
+		var data = [];
+		for (var i = 0; i < stock.length; i++) {
+			if (isNaN(stock[i].value)) {
+				alert("재고를 [숫자 형식]으로 입력해주세요.");
+				return;
+			}
+			data.push([ stock[i].name, stock[i].value ]);
+		}
+		data = data.join('/');
+		$.ajax({
+			url : "<c:url value='/item/stockUpdate'/>",
+			type : "post",
+			dataType : "json",
+			data : {
+				"data" : data
+			},
+			success : function(data) {
+				if (data)
+					alert("재고수정 완료");
+				else
+					alert("재고수정 실패");
+			}
+		});
 	}
 
 	function delete_Item(i_idx) {
@@ -272,7 +299,8 @@
 				</div>
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">저장</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"
+						onclick="saveStock();">저장</button>
 					<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 				</div>
 

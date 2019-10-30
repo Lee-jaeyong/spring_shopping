@@ -22,4 +22,14 @@ public interface ShoppingDAO {
 	public boolean updateItem(Map<String, Object> map) throws Exception;
 
 	public List<HashMap<String, Object>> stockItem(int i_idx) throws Exception;
+
+	public boolean updateStock(Map<String, String> map) throws Exception;
+
+	public boolean addColorAndSize(Map<String, String> map) throws Exception;
+
+	public boolean addStock() throws Exception;
+
+	public boolean deleteColorAndSize(int i_idx) throws Exception;
+
+	public boolean deleteStock(int i_idx) throws Exception;
 }

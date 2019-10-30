@@ -1,6 +1,7 @@
 package com.shop.shopping.backend.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -19,12 +20,12 @@ import com.shop.shopping.service.ShoppingService;
 import com.shop.shopping.util.UtilFile;
 
 @Controller
-@RequestMapping(value="/admin")
-public class ShoppingController {
+@RequestMapping(value = "/admin")
+public class ShoppingItemController {
 
 	@Autowired
 	ShoppingService shoppingService;
-	
+
 	@Autowired
 	CategoryService categoryService;
 
@@ -48,7 +49,8 @@ public class ShoppingController {
 	}
 
 	@RequestMapping(value = "/addItemExecute.do", method = RequestMethod.POST)
-	public String addItemExecute(ItemVO itemVO, @RequestParam("ImgMain") MultipartFile ImgMain,
+	public String addItemExecute(ItemVO itemVO, @RequestParam("i_color") List<String> i_color,
+			@RequestParam("i_size") List<String> i_size, @RequestParam("ImgMain") MultipartFile ImgMain,
 			@RequestParam("ImgDetail") MultipartFile ImgDetail) throws Exception {
 		String mainImg = utilFile.fileUpload(false, ImgMain);
 		String detailImg = utilFile.fileUpload(true, ImgDetail);
@@ -61,6 +63,15 @@ public class ShoppingController {
 		map.put("i_main", mainImg.substring(mainImg.indexOf("front")).replace("jpg", "jpeg"));
 		map.put("cs_idx", itemVO.getCs_categoryNum());
 		shoppingService.addItem(map);
+		for (int i = 0; i < i_color.size(); i++) {
+			for (int j = 0; j < i_size.size(); j++) {
+				Map<String,String> sizeAndColor = new HashMap<String, String>();
+				sizeAndColor.put("color", i_color.get(i));
+				sizeAndColor.put("size", i_size.get(j));
+				shoppingService.addColorAndSize(sizeAndColor);
+				shoppingService.addStock();
+			}
+		}
 		return "redirect:itemList.do";
 	}
 

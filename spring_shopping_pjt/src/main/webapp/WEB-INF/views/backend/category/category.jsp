@@ -57,6 +57,8 @@
 									+ "</td>";
 							categorySection += "<td>" + data[i].c_categoryName
 									+ "</td>";
+							categorySection += "<td><button type='button' class='btn btn-success'>수정</button></td>";
+							categorySection += "<td><button type='button' class='btn btn-danger'>삭제</button></td>";
 							categorySection += "</tr>";
 							cs_categorySection += "<option value='"+data[i].cn_idx+"'>"
 									+ data[i].c_categoryName

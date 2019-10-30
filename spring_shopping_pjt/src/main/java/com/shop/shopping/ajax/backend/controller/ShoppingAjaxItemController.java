@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +24,7 @@ import com.shop.shopping.util.ExcelUpload;
 
 @Controller
 @RequestMapping(value = "/item")
-public class ShoppingItemController {
+public class ShoppingAjaxItemController {
 
 	@Autowired
 	ShoppingService shoppingService;
@@ -55,6 +56,8 @@ public class ShoppingItemController {
 	public @ResponseBody String deleteItem(@RequestParam("i_idx") String i_idx) {
 		try {
 			shoppingService.deleteItem(Integer.parseInt(i_idx));
+			shoppingService.deleteColorAndSize(Integer.parseInt(i_idx));
+			shoppingService.deleteStock(Integer.parseInt(i_idx));
 			return "{\"result\":\"true\"}";
 		} catch (Exception e) {
 			return "{\"result\":\"false\"}";
@@ -93,5 +96,23 @@ public class ShoppingItemController {
 	@RequestMapping(value = "/stockItem", method = RequestMethod.POST)
 	public @ResponseBody String stockItem(@RequestParam("i_idx") String i_idx) throws Exception {
 		return new ObjectMapper().writeValueAsString(shoppingService.stockItem(Integer.parseInt(i_idx)));
+	}
+
+	@RequestMapping(value = "/stockUpdate", method = RequestMethod.POST)
+	public @ResponseBody String stockUpdate(@RequestParam("data") String data) {
+		StringTokenizer stringTokenizer = new StringTokenizer(data, "/");
+		while (stringTokenizer.hasMoreTokens()) {
+			String tokenData = stringTokenizer.nextToken();
+			String[] tokenDataSplit = tokenData.split(",");
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("stockId", tokenDataSplit[0]);
+			map.put("input", tokenDataSplit[1]);
+			try {
+				shoppingService.updateStock(map);
+			} catch (Exception e) {
+				return "{\"result\":\"false\"}";
+			}
+		}
+		return "{\"result\":\"true\"}";
 	}
 }

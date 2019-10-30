@@ -47,4 +47,24 @@ public class ShoppingService {
 	public List<HashMap<String, Object>> stockItem(int i_idx) throws Exception {
 		return shoppingDAO.stockItem(i_idx);
 	}
+
+	public boolean updateStock(Map<String, String> map) throws Exception {
+		return shoppingDAO.updateStock(map);
+	}
+
+	public boolean addColorAndSize(Map<String, String> map) throws Exception {
+		return shoppingDAO.addColorAndSize(map);
+	}
+	
+	public boolean addStock() throws Exception{
+		return shoppingDAO.addStock();
+	}
+	
+	public boolean deleteColorAndSize(int i_idx) throws Exception{
+		return shoppingDAO.deleteColorAndSize(i_idx);
+	}
+
+	public boolean deleteStock(int i_idx) throws Exception{
+		return shoppingDAO.deleteStock(i_idx);
+	}
 }

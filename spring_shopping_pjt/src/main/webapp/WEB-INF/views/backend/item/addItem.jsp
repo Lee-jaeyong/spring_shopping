@@ -4,12 +4,26 @@
 <!DOCTYPE html>
 <html dir="ltr">
 <script>
+	var colorIdx = 0;
 	function submitPage(type) {
 		if (type === 'add') {
+			var chkColor = true;
+			for (var i = 0; i < $("input[name='i_color']").length; i++) {
+				if ($("input[name='i_color']")[i].value == '') {
+					chkColor = false;
+				}
+			}
 			if ($("input[name='i_name']").val().trim() === '') {
 				alert("상품명을 입력해주세요.");
 			} else if ($("input[name='i_price']").val().trim() === '') {
 				alert("상품 가격을 입력해주세요.");
+			} else if (isNaN($("input[name='i_price']").val())) {
+				alert("상품 가격을 다시입력해주세요.");
+			} else if ($("input:checkbox[name='i_size']:checked").length <= 0) {
+				alert("상품 사이즈를 선택해주세요.");
+			} else if ($("input[name='i_color']").length <= 0
+					|| chkColor == false) {
+				alert("상품 색상을 입력해주세요.");
 			} else if (isNaN($("input[name='i_price']").val())) {
 				alert("상품 가격을 다시입력해주세요.");
 			} else if ($("#cs_categoryNum").val() === '') {
@@ -57,6 +71,21 @@
 						$("#cs_category").html(cs_category);
 					}
 				})
+	}
+
+	function addColor() {
+		$("#colorArea")
+				.append(
+						"<input type='text' id='" + colorIdx
+						+ "' name='i_color'/><input type='button' id='"
+								+ colorIdx
+								+ "' value='x' onclick='deleteColor("
+								+ (colorIdx++) + ")'>");
+	}
+
+	function deleteColor(colorIdx) {
+		$("input[type='text']").remove("#" + colorIdx);
+		$("input[type='button']").remove("#" + colorIdx);
 	}
 </script>
 <%@include file="../include/pageHead.jsp"%>
@@ -107,6 +136,45 @@
 								</div>
 								<c:if test="${itemVO.i_name eq null}">
 									<div class="form-group row">
+										<label for="lname"
+											class="col-sm-3 text-right control-label col-form-label">*사이즈</label>
+										<div class="col-sm-9" style="margin-top: 5px;">
+											<div class="form-check-inline">
+												<label class="form-check-label"> <input
+													type="checkbox" class="form-check-input" name="i_size"
+													value="S">S
+												</label>
+											</div>
+											<div class="form-check-inline">
+												<label class="form-check-label"> <input
+													type="checkbox" class="form-check-input" name="i_size"
+													value="M">M
+												</label>
+											</div>
+											<div class="form-check-inline">
+												<label class="form-check-label"> <input
+													type="checkbox" class="form-check-input" name="i_size"
+													value="L">L
+												</label>
+											</div>
+											<div class="form-check-inline">
+												<label class="form-check-label"> <input
+													type="checkbox" class="form-check-input" name="i_size"
+													value="XL">XL
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="fname"
+											class="col-sm-3 text-right control-label col-form-label">*색상</label>
+										<div id="colorArea" class="col-sm-2"></div>
+										<div class="col-sm-5">
+											<button type="button" class="btn btn-info"
+												onclick="addColor();">색상 추가</button>
+										</div>
+									</div>
+									<div class="form-group row">
 										<label for="cono1"
 											class="col-sm-3 text-right control-label col-form-label">(대)분류</label>
 										<div class="col-sm-3">
@@ -149,12 +217,13 @@
 										<br />
 										<c:choose>
 											<c:when test="${itemVO.img_path eq null}">
-												<img id="mainImgMain" src="resources/backend/image/background.jpg"
+												<img id="mainImgMain"
+													src="${pageContext.request.contextPath}/resources/backend/image/background.jpg"
 													style="width: 1000px; height: 300px;">
 											</c:when>
 											<c:when test="${itemVO.img_path ne null}">
 												<img id="mainImgMain"
-													src="resources/backend/image/${itemVO.img_path}"
+													src="${pageContext.request.contextPath}/resources/backend/image/${itemVO.img_path}"
 													style="width: 1000px; height: 300px;">
 											</c:when>
 										</c:choose>
@@ -173,12 +242,13 @@
 										<br />
 										<c:choose>
 											<c:when test="${itemVO.i_detailimg eq null}">
-												<img id="mainImgSub" src="resources/backend/image/background.jpg"
+												<img id="mainImgSub"
+													src="${pageContext.request.contextPath}/resources/backend/image/background.jpg"
 													style="width: 1000px; height: 300px;">
 											</c:when>
 											<c:when test="${itemVO.i_detailimg ne null}">
 												<img id="mainImgSub"
-													src="resources/backend/image/${itemVO.i_detailimg}"
+													src="${pageContext.request.contextPath}/resources/backend/image/${itemVO.i_detailimg}"
 													style="width: 1000px; height: 300px;">
 											</c:when>
 										</c:choose>
