@@ -53,12 +53,11 @@
 						var cs_categorySection = "<select id='CcategoryVal' onchange='categoryCS_list();'>";
 						for (var i = 0; i < data.length; i++) {
 							categorySection += "<tr>";
-							categorySection += "<td>" + data[i].cn_idx
-									+ "</td>";
 							categorySection += "<td>" + data[i].c_categoryName
 									+ "</td>";
-							categorySection += "<td><button type='button' class='btn btn-success'>수정</button></td>";
-							categorySection += "<td><button type='button' class='btn btn-danger'>삭제</button></td>";
+							categorySection += "<td>" + data[i].c_categoryCount
+									+ "개</td>";
+							categorySection += "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#myModal'>수정 및 삭제</button></td>";
 							categorySection += "</tr>";
 							cs_categorySection += "<option value='"+data[i].cn_idx+"'>"
 									+ data[i].c_categoryName
@@ -101,6 +100,14 @@
 				})
 	}
 
+	function category_C_Update(){
+		alert("update");	
+	}
+	
+	function category_C_Delete(){
+		alert("*(대)카테고리 삭제시 연관된 모든(소) 카테고리 또한 삭제됩니다.");
+	}
+	
 	window.onload = categoryC_list('Ccategory');
 </script>
 <body>
@@ -159,8 +166,8 @@
 													<table class="table">
 														<thead>
 															<tr>
-																<th scope="col">(대)카테고리 번호</th>
 																<th scope="col">(대)카테고리 명</th>
+																<th scope="col">(소)카테고리 개수</th>
 															</tr>
 														</thead>
 														<tbody id="CcategorySection">
@@ -231,6 +238,31 @@
 		<%@include file="../include/pageFooter.jsp"%>
 	</div>
 	<%@include file="../include/include_JS.html"%>
-	<input type="hidden" id="nowPage" value="" />
+	<!-- The Modal -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">재고 관리</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form class="form-inline">
+						<div id="stockArea"></div>
+					</form>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"
+						onclick="category_C_Update();">수정</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"
+						onclick="category_C_Delete();">삭제</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
