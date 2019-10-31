@@ -65,7 +65,7 @@ public class ShoppingItemController {
 		shoppingService.addItem(map);
 		for (int i = 0; i < i_color.size(); i++) {
 			for (int j = 0; j < i_size.size(); j++) {
-				Map<String,String> sizeAndColor = new HashMap<String, String>();
+				Map<String, String> sizeAndColor = new HashMap<String, String>();
 				sizeAndColor.put("color", i_color.get(i));
 				sizeAndColor.put("size", i_size.get(j));
 				shoppingService.addColorAndSize(sizeAndColor);
@@ -89,7 +89,7 @@ public class ShoppingItemController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/updateItemExecute.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateItemExecute.do", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public String updateItemExecute(ItemVO itemVO, @RequestParam("ImgMain") MultipartFile ImgMain,
 			@RequestParam("ImgDetail") MultipartFile ImgDetail) throws Exception {
 		String mainImg = utilFile.fileUpload(false, ImgMain);

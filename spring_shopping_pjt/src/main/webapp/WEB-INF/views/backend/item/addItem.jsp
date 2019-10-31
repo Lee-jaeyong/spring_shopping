@@ -8,11 +8,24 @@
 	function submitPage(type) {
 		if (type === 'add') {
 			var chkColor = true;
+			var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+			var chkStr = "";
 			for (var i = 0; i < $("input[name='i_color']").length; i++) {
-				if ($("input[name='i_color']")[i].value == '') {
+				chkStr = $("input[name='i_color']")[i].value;
+				if ($("input[name='i_color']")[i].value == ''
+						|| check.test($("input[name='i_color']")[i].value)) {
 					chkColor = false;
 				}
+				for (var j = 0; j < $("input[name='i_color']").length; j++) {
+					if(i != j && chkStr === $("input[name='i_color']")[j].value)
+					{
+						chkColor = false 
+					}
+				}
+				if(chkColor == false)
+					break;
 			}
+
 			if ($("input[name='i_name']").val().trim() === '') {
 				alert("상품명을 입력해주세요.");
 			} else if ($("input[name='i_price']").val().trim() === '') {
@@ -23,7 +36,7 @@
 				alert("상품 사이즈를 선택해주세요.");
 			} else if ($("input[name='i_color']").length <= 0
 					|| chkColor == false) {
-				alert("상품 색상을 입력해주세요.");
+				alert("상품 색상을 다시 입력해주세요.");
 			} else if (isNaN($("input[name='i_price']").val())) {
 				alert("상품 가격을 다시입력해주세요.");
 			} else if ($("#cs_categoryNum").val() === '') {

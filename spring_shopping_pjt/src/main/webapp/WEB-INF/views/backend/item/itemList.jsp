@@ -242,7 +242,7 @@
 									<br />
 									<div class="card-body">
 										<button class="btn btn-success"
-											onclick="location.href='./item/excelDown';">엑셀 다운로드</button>
+											onclick="location.href='../item/excelDown';">엑셀 다운로드</button>
 									</div>
 								</div>
 							</div>
@@ -303,7 +303,6 @@
 						onclick="saveStock();">저장</button>
 					<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 				</div>
-
 			</div>
 		</div>
 	</div>
