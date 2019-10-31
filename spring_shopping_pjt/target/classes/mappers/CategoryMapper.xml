@@ -4,13 +4,15 @@
 <mapper namespace="com.shop.shopping.DAO.CategoryDAO">
 
 	<select id="getC_Category" resultType="hashmap">
-		select cn_idx,c_categoryName,countCategory(cn_idx) "c_categoryCount"
-		from s_categoryName
+		select
+		cn_idx,c_categoryName,countCategory(cn_idx) "c_categoryCount"
+		from
+		s_categoryName
 	</select>
 
 	<select id="getCsCategoryList" resultType="hashmap">
 		select
-		csn_idx,cs_categoryName from s_small_categoryname where c_idx =
+		csn_idx,cs_categoryName,countCscATEGORY(c_idx) "countCsCategory" from s_small_categoryname where c_idx =
 		#{category}
 	</select>
 
@@ -28,15 +30,28 @@
 		insert into
 		s_small_categoryname values (#{categoryClass},NULL,#{category})
 	</insert>
-	
+
 	<delete id="deleteCcategory" parameterType="int">
-		delete from s_categoryname
+		delete from
+		s_categoryname
 		where cn_idx = #{c_idx}
 	</delete>
-	
+
+	<delete id="deleteCscategory" parameterType="int">
+		delete from
+		s_small_categoryname
+		where csn_idx = #{c_idx}
+	</delete>
+
 	<update id="updateCcategory" parameterType="hashmap">
 		update s_categoryname
 		set c_categoryName = #{c_name}
 		where cn_idx = #{c_idx}
+	</update>
+
+	<update id="updateCscategory" parameterType="hashmap">
+		update s_small_categoryname
+		set cs_categoryName = #{c_name}
+		where csn_idx = #{c_idx}
 	</update>
 </mapper>

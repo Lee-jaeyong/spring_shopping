@@ -67,7 +67,7 @@
 									+ data[i].cn_idx
 									+ ",\""
 									+ data[i].c_categoryName
-									+ "\")'>수정 및 삭제</button></td>";
+									+ "\",true)'>수정 및 삭제</button></td>";
 							categorySection += "</tr>";
 							cs_categorySection += "<option value='"+data[i].cn_idx+"'>"
 									+ data[i].c_categoryName
@@ -96,10 +96,15 @@
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
 								cs_categorySection += "<tr>";
-								cs_categorySection += "<td>" + data[i].csn_idx
-										+ "</td>";
 								cs_categorySection += "<td>"
 										+ data[i].cs_categoryName + "</td>";
+								cs_categorySection += "<td>"
+										+ data[i].countCsCategory + "개</td>";
+								cs_categorySection += "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#myModal' onclick='categoryUD("
+										+ data[i].csn_idx
+										+ ",\""
+										+ data[i].cs_categoryName
+										+ "\",false)'>수정 및 삭제</button></td>";
 								cs_categorySection += "</tr>";
 							}
 						} else {
@@ -110,18 +115,30 @@
 				})
 	}
 
-	function categoryUD(c_idx, c_name) {
+	function categoryUD(c_idx, c_name, type) {
+		$("#category_type").val(type);
+		$("#changeCcategory").val("");
 		$("#c_category_idx").val(c_idx);
 		$("#originCcategory").val(c_name);
 	}
 
-	function category_C_Update() {
+	function categoryUpdate() {
+		if ($("#changeCcategory").val() === '') {
+			alert("수정할 카테고리명을 다시 입력해주세요.");
+			return;
+		}
+		if ($("#category_type").val() == "true") {
+			var c_cs_type = "C_category";
+		} else {
+			var c_cs_type = "Cs_category";
+		}
 		if (confirm('*정말 수정하시겠습니까?')) {
 			$.ajax({
 				url : "<c:url value='/category/updateCcategory'/>",
 				data : {
 					"c_name" : $("#changeCcategory").val(),
-					"c_idx" : $("#c_category_idx").val()
+					"c_idx" : $("#c_category_idx").val(),
+					"type" : c_cs_type
 				},
 				dataType : "json",
 				success : function(data) {
@@ -129,19 +146,29 @@
 						alert("카테고리 수정 완료");
 					else
 						alert("카테고리 수정 실패");
-					categoryC_list('Ccategory');
+					if (c_cs_type === "C_category")
+						categoryC_list('Ccategory');
+					else
+						categoryCS_list();
 				}
 			});
 		}
 	}
 
-	function category_C_Delete() {
-		var conFirm = confirm('*(대)카테고리 삭제시 연관된 모든(소) 카테고리 또한 삭제됩니다.');
+	function categoryDelete() {
+		if ($("#category_type").val() == "true") {
+			var conFirm = confirm('*(대)카테고리 삭제시 연관된 모든(소) 카테고리 또한 삭제됩니다.');
+			var c_cs_type = "C_category";
+		} else {
+			var conFirm = confirm('*정말 삭제하시겠습니까?');
+			var c_cs_type = "Cs_category";
+		}
 		if (conFirm) {
 			$.ajax({
 				url : "<c:url value='/category/deleteCcategory'/>",
 				data : {
-					"c_idx" : $("#c_category_idx").val()
+					"c_idx" : $("#c_category_idx").val(),
+					"type" : c_cs_type
 				},
 				dataType : "json",
 				success : function(data) {
@@ -149,7 +176,10 @@
 						alert("카테고리 삭제 완료");
 					else
 						alert("카테고리 삭제 실패");
-					categoryC_list('Ccategory');
+					if (c_cs_type === "C_category")
+						categoryC_list('Ccategory');
+					else
+						categoryCS_list();
 				}
 			});
 		}
@@ -177,8 +207,7 @@
 							<ul class="nav nav-tabs" role="tablist">
 								<li class="nav-item"><a class="nav-link active"
 									data-toggle="tab" href="#home" role="tab"><span
-										class="hidden-sm-up"></span> <span class="hidden-xs-down">(대)카테고리</span></a>
-								</li>
+										class="hidden-sm-up"></span> <span class="hidden-xs-down">(대)카테고리</span></a></li>
 								<li class="nav-item"><a class="nav-link" data-toggle="tab"
 									href="#profile" role="tab"><span class="hidden-sm-up"></span>
 										<span class="hidden-xs-down">(소)카테고리</span></a></li>
@@ -261,8 +290,9 @@
 													<table class="table">
 														<thead>
 															<tr>
-																<th scope="col">(소)카테고리 번호</th>
 																<th scope="col">(소)카테고리 명</th>
+																<th scope="col">해당 상품 개수</th>
+																<th scope="col"></th>
 															</tr>
 														</thead>
 														<tbody id="CScategorySection">
@@ -308,11 +338,12 @@
 				<!-- Modal footer -->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal"
-						onclick="category_C_Update();">수정</button>
+						onclick="categoryUpdate();">수정</button>
 					<button type="button" class="btn btn-danger" data-dismiss="modal"
-						onclick="category_C_Delete();">삭제</button>
+						onclick="categoryDelete();">삭제</button>
 					<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
-					<input type="hidden" id="c_category_idx" value="" />
+					<input type="hidden" id="c_category_idx" value="" /> <input
+						type="hidden" id="category_type" value="C_category" />
 				</div>
 			</div>
 		</div>

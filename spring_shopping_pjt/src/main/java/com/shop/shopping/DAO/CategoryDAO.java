@@ -15,8 +15,12 @@ public interface CategoryDAO {
 	public int addCscategory(Map<String, Object> map) throws Exception;
 
 	public int getCsCategoryCount(String category) throws Exception;
-	
+
 	public boolean deleteCcategory(int c_idx) throws Exception;
-	
+
 	public boolean updateCcategory(Map<String, String> map) throws Exception;
+
+	public boolean deleteCscategory(int c_idx) throws Exception;
+
+	public boolean updateCscategory(Map<String, String> map) throws Exception;
 }

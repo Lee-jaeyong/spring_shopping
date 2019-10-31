@@ -57,20 +57,21 @@
 	}
 
 	function delete_Item(i_idx) {
-		$.ajax({
-			url : "<c:url value='/item/deleteItem'/>",
-			dataType : "json",
-			data : {
-				"i_idx" : i_idx
-			},
-			success : function(data) {
-				if (data.result === 'true')
-					alert("삭제 완료");
-				else
-					alert("삭제 중 예기치 않은 오류가 발생했습니다.");
-				pageMove(0);
-			}
-		});
+		if (confirm("*정말 삭제하시겠습니까?"))
+			$.ajax({
+				url : "<c:url value='/item/deleteItem'/>",
+				dataType : "json",
+				data : {
+					"i_idx" : i_idx
+				},
+				success : function(data) {
+					if (data.result === 'true')
+						alert("삭제 완료");
+					else
+						alert("삭제 중 예기치 않은 오류가 발생했습니다.");
+					pageMove(0);
+				}
+			});
 	}
 
 	function update_Item(i_idx) {
@@ -117,8 +118,6 @@
 								html += "<td>"
 										+ numberWithCommas(data.result[i].i_price)
 										+ "￦</td>";
-								html += "<td>" + data.result[i].img_path
-										+ "</td>";
 								html += "<td>" + data.result[i].c_categoryName
 										+ "</td>";
 								html += "<td>" + data.result[i].cs_categoryName
@@ -257,7 +256,6 @@
 										<th>상품번호</th>
 										<th>상품명</th>
 										<th>가격</th>
-										<th>메인이미지</th>
 										<th>대분류</th>
 										<th>소분류</th>
 										<th>상품 등록일</th>

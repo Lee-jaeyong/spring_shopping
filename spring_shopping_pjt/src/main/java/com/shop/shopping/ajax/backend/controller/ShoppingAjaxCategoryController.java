@@ -54,9 +54,13 @@ public class ShoppingAjaxCategoryController {
 	}
 
 	@RequestMapping(value = "/deleteCcategory")
-	public @ResponseBody String deleteCcategory(@RequestParam("c_idx") String c_idx) {
+	public @ResponseBody String deleteCcategory(@RequestParam("c_idx") String c_idx,
+			@RequestParam("type") String type) {
 		try {
-			categoryService.deleteCcategory(Integer.parseInt(c_idx));
+			if (type.equals("C_category"))
+				categoryService.deleteCcategory(Integer.parseInt(c_idx));
+			else
+				categoryService.deleteCscategory(Integer.parseInt(c_idx));
 			return "{\"result\":\"true\"}";
 		} catch (Exception e) {
 			return "{\"result\":\"false\"}";
@@ -65,12 +69,15 @@ public class ShoppingAjaxCategoryController {
 
 	@RequestMapping(value = "/updateCcategory")
 	public @ResponseBody String updateCcategory(@RequestParam("c_idx") String c_idx,
-			@RequestParam("c_name") String c_name) {
+			@RequestParam("c_name") String c_name, @RequestParam("type") String type) {
 		try {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("c_idx", c_idx);
 			map.put("c_name", c_name);
-			categoryService.updateCcategory(map);
+			if (type.equals("C_category"))
+				categoryService.updateCcategory(map);
+			else
+				categoryService.updateCscategory(map);
 			return "{\"result\":\"true\"}";
 		} catch (Exception e) {
 			return "{\"result\":\"false\"}";
