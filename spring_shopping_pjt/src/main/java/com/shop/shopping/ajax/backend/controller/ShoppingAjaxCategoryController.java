@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.shopping.service.CategoryService;
 
 @Controller
-@RequestMapping(value="/category")
+@RequestMapping(value = "/category")
 public class ShoppingAjaxCategoryController {
 
 	@Autowired
@@ -51,5 +51,29 @@ public class ShoppingAjaxCategoryController {
 			return "{\"result\":\"false\"}";
 		}
 		return "{\"result\":\"true\"}";
+	}
+
+	@RequestMapping(value = "/deleteCcategory")
+	public @ResponseBody String deleteCcategory(@RequestParam("c_idx") String c_idx) {
+		try {
+			categoryService.deleteCcategory(Integer.parseInt(c_idx));
+			return "{\"result\":\"true\"}";
+		} catch (Exception e) {
+			return "{\"result\":\"false\"}";
+		}
+	}
+
+	@RequestMapping(value = "/updateCcategory")
+	public @ResponseBody String updateCcategory(@RequestParam("c_idx") String c_idx,
+			@RequestParam("c_name") String c_name) {
+		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("c_idx", c_idx);
+			map.put("c_name", c_name);
+			categoryService.updateCcategory(map);
+			return "{\"result\":\"true\"}";
+		} catch (Exception e) {
+			return "{\"result\":\"false\"}";
+		}
 	}
 }

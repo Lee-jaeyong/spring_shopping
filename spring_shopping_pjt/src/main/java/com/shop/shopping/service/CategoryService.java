@@ -33,4 +33,13 @@ public class CategoryService {
 	public int getCsCategoryCount(String category) throws Exception {
 		return categoryDAO.getCsCategoryCount(category);
 	}
+	
+	public boolean deleteCcategory(int c_idx) throws Exception{
+		return categoryDAO.deleteCcategory(c_idx);
+	}
+	
+	public boolean updateCcategory(Map<String, String> map) throws Exception
+	{
+		return categoryDAO.updateCcategory(map);
+	}
 }

@@ -8,39 +8,45 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	function addcategory() {
-		$.ajax({
-			url : "<c:url value='/category/addCcategory'/>",
-			dataType : "json",
-			data : {
-				"category" : $("#CcateogryValue").val()
-			},
-			success : function(data) {
-				if (data.result)
-					alert("(대)카테고리 추가 완료");
-				else
-					alert("(대)카테고리 추가 실패");
-				categoryC_list('Ccategory');
-			}
-		})
+		if ($("#CcateogryValue").val().trim() != '')
+			$.ajax({
+				url : "<c:url value='/category/addCcategory'/>",
+				dataType : "json",
+				data : {
+					"category" : $("#CcateogryValue").val()
+				},
+				success : function(data) {
+					if (data.result)
+						alert("(대)카테고리 추가 완료");
+					else
+						alert("(대)카테고리 추가 실패");
+					categoryC_list('Ccategory');
+				}
+			})
+		else
+			alert("(대)카테고리를 입력해주세요.");
 	}
 
 	function addCsCategory() {
-		$.ajax({
-			url : "<c:url value='/category/addCscategory'/>",
-			dataType : "json",
-			data : {
-				"category" : $("#CScateogryValue").val(),
-				"categoryClass" : $("#CcategoryVal").val()
-			},
-			success : function(data) {
-				if (data.result)
-					alert("(소)카테고리 추가 완료");
-				else
-					alert("(소)카테고리 추가 실패");
-				categoryCS_list();
-				$("#CScateogryValue").val("");
-			}
-		})
+		if ($("#CScateogryValue").val().trim() != '')
+			$.ajax({
+				url : "<c:url value='/category/addCscategory'/>",
+				dataType : "json",
+				data : {
+					"category" : $("#CScateogryValue").val(),
+					"categoryClass" : $("#CcategoryVal").val()
+				},
+				success : function(data) {
+					if (data.result)
+						alert("(소)카테고리 추가 완료");
+					else
+						alert("(소)카테고리 추가 실패");
+					categoryCS_list();
+					$("#CScateogryValue").val("");
+				}
+			})
+		else
+			alert("(소)카테고리를 입력해주세요.");
 	}
 
 	function categoryC_list(category) {
@@ -57,7 +63,11 @@
 									+ "</td>";
 							categorySection += "<td>" + data[i].c_categoryCount
 									+ "개</td>";
-							categorySection += "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#myModal'>수정 및 삭제</button></td>";
+							categorySection += "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#myModal' onclick='categoryUD("
+									+ data[i].cn_idx
+									+ ",\""
+									+ data[i].c_categoryName
+									+ "\")'>수정 및 삭제</button></td>";
 							categorySection += "</tr>";
 							cs_categorySection += "<option value='"+data[i].cn_idx+"'>"
 									+ data[i].c_categoryName
@@ -100,14 +110,51 @@
 				})
 	}
 
-	function category_C_Update(){
-		alert("update");	
+	function categoryUD(c_idx, c_name) {
+		$("#c_category_idx").val(c_idx);
+		$("#originCcategory").val(c_name);
 	}
-	
-	function category_C_Delete(){
-		alert("*(대)카테고리 삭제시 연관된 모든(소) 카테고리 또한 삭제됩니다.");
+
+	function category_C_Update() {
+		if (confirm('*정말 수정하시겠습니까?')) {
+			$.ajax({
+				url : "<c:url value='/category/updateCcategory'/>",
+				data : {
+					"c_name" : $("#changeCcategory").val(),
+					"c_idx" : $("#c_category_idx").val()
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data.result === "true")
+						alert("카테고리 수정 완료");
+					else
+						alert("카테고리 수정 실패");
+					categoryC_list('Ccategory');
+				}
+			});
+		}
 	}
-	
+
+	function category_C_Delete() {
+		var conFirm = confirm('*(대)카테고리 삭제시 연관된 모든(소) 카테고리 또한 삭제됩니다.');
+		if (conFirm) {
+			$.ajax({
+				url : "<c:url value='/category/deleteCcategory'/>",
+				data : {
+					"c_idx" : $("#c_category_idx").val()
+				},
+				dataType : "json",
+				success : function(data) {
+					if (data.result === "true")
+						alert("카테고리 삭제 완료");
+					else
+						alert("카테고리 삭제 실패");
+					categoryC_list('Ccategory');
+				}
+			});
+		}
+	}
+
 	window.onload = categoryC_list('Ccategory');
 </script>
 <body>
@@ -249,9 +296,14 @@
 				</div>
 				<!-- Modal body -->
 				<div class="modal-body">
-					<form class="form-inline">
-						<div id="stockArea"></div>
-					</form>
+					<div class="form-group">
+						<label>기존 카테고리 명:</label> <input type="text" class="form-control"
+							id="originCcategory" disabled="disabled">
+					</div>
+					<div class="form-group">
+						<label>변경 카테고리 명:</label> <input type="text" class="form-control"
+							id="changeCcategory">
+					</div>
 				</div>
 				<!-- Modal footer -->
 				<div class="modal-footer">
@@ -260,6 +312,7 @@
 					<button type="button" class="btn btn-danger" data-dismiss="modal"
 						onclick="category_C_Delete();">삭제</button>
 					<button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
+					<input type="hidden" id="c_category_idx" value="" />
 				</div>
 			</div>
 		</div>

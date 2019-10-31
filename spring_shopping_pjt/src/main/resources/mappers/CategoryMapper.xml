@@ -28,4 +28,15 @@
 		insert into
 		s_small_categoryname values (#{categoryClass},NULL,#{category})
 	</insert>
+	
+	<delete id="deleteCcategory" parameterType="int">
+		delete from s_categoryname
+		where cn_idx = #{c_idx}
+	</delete>
+	
+	<update id="updateCcategory" parameterType="hashmap">
+		update s_categoryname
+		set c_categoryName = #{c_name}
+		where cn_idx = #{c_idx}
+	</update>
 </mapper>
