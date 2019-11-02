@@ -2,8 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="./include/header.html"%>
+<script>
+	function pageMove(page) {
+		$("input[name='page']").val(page);
+		$("input[name='search']").val($("#searchArea").val());
+		$("input[name='sortType']").val("i_idx");
+		$("#moveForm").attr("method", "GET").attr("action", "").submit();
+	}
+</script>
 <body>
-
+	<form id="moveForm">
+		<input type="hidden" name="page" value="0" /> <input type="hidden"
+			name="sortType" value="i_idx" /> <input type="hidden" name="search"
+			value="" />
+	</form>
 	<div class="site-wrap">
 		<%@include file="./include/siteNavbar.html"%>
 		<%@include file="./include/publicHeader.html"%>
@@ -20,233 +32,58 @@
 									<h2 class="text-black h5">Shop All</h2>
 								</div>
 								<div class="d-flex">
-									<div class="dropdown mr-1 ml-md-auto">
-										<button type="button"
-											class="btn btn-secondary btn-sm dropdown-toggle"
-											id="dropdownMenuOffset" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">Latest</button>
-										<div class="dropdown-menu"
-											aria-labelledby="dropdownMenuOffset">
-											<a class="dropdown-item" href="#">Men</a> <a
-												class="dropdown-item" href="#">Women</a> <a
-												class="dropdown-item" href="#">Children</a>
-										</div>
-									</div>
+									<div class="dropdown mr-1 ml-md-auto"></div>
 									<div class="btn-group">
 										<button type="button"
 											class="btn btn-secondary btn-sm dropdown-toggle"
-											id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
+											id="dropdownMenuReference" data-toggle="dropdown">정렬
+											방식</button>
 										<div class="dropdown-menu"
 											aria-labelledby="dropdownMenuReference">
-											<a class="dropdown-item" href="#">Relevance</a> <a
-												class="dropdown-item" href="#">Name, A to Z</a> <a
-												class="dropdown-item" href="#">Name, Z to A</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="#">Price, low to high</a> <a
-												class="dropdown-item" href="#">Price, high to low</a>
+											<a class="dropdown-item" href="#">상품 번호 순</a> <a
+												class="dropdown-item" href="#">가격 낮은 순</a> <a
+												class="dropdown-item" href="#">가격 높은 순</a> <a
+												class="dropdown-item" href="#">인기 많은 순</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row mb-5">
-
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_1.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Tank Top</a>
-										</h3>
-										<p class="mb-0">Finding perfect t-shirt</p>
-										<p class="text-primary font-weight-bold">$50</p>
+							<c:forEach var="item" items="${itemList }">
+								<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+									<div class="block-4 text-center border">
+										<figure class="block-4-image">
+											<a href="shop-single.html"><img
+												src="${pageContext.request.contextPath}/resources/backend/image/${item.img_path }"
+												class="img-fluid" style="width: 300px; height: 270px;"></a>
+										</figure>
+										<div class="block-4-text p-4">
+											<h3>
+												<a href="shop-single.html">${item.i_name }</a>
+											</h3>
+											<p class="mb-0">Finding perfect t-shirt</p>
+											<p class="text-primary font-weight-bold">${item.i_price }원</p>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/shoe_1.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Corater</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_2.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Polo Shirt</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_3.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">T-Shirt Mockup</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/shoe_1.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Corater</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_1.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Tank Top</a>
-										</h3>
-										<p class="mb-0">Finding perfect t-shirt</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/shoe_1.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Corater</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_2.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Polo Shirt</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_3.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">T-Shirt Mockup</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/shoe_1.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Corater</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_1.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Tank Top</a>
-										</h3>
-										<p class="mb-0">Finding perfect t-shirt</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-								<div class="block-4 text-center border">
-									<figure class="block-4-image">
-										<a href="shop-single.html"><img src="${pageContext.request.contextPath}/resources/front/images/cloth_2.jpg"
-											alt="Image placeholder" class="img-fluid"></a>
-									</figure>
-									<div class="block-4-text p-4">
-										<h3>
-											<a href="shop-single.html">Polo Shirt</a>
-										</h3>
-										<p class="mb-0">Finding perfect products</p>
-										<p class="text-primary font-weight-bold">$50</p>
-									</div>
-								</div>
-							</div>
-
-
+							</c:forEach>
 						</div>
 						<div class="row" data-aos="fade-up">
 							<div class="col-md-12 text-center">
 								<div class="site-block-27">
 									<ul>
 										<li><a href="#">&lt;</a></li>
-										<li class="active"><span>1</span></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
+										<c:forEach var="i" begin="${startBlock }" end="${endBlock -1}">
+											<c:choose>
+												<c:when test="${page eq  i}">
+													<li class="active"><span>${i+1 }</span></li>
+												</c:when>
+												<c:when test="${page ne  i}">
+													<li><a href="javascript:pageMove(${i })">${i+1 }</a></li>
+												</c:when>
+											</c:choose>
+										</c:forEach>
 										<li><a href="#">&gt;</a></li>
 									</ul>
 								</div>
@@ -273,7 +110,7 @@
 									by Price</h3>
 								<div id="slider-range" class="border-primary"></div>
 								<input type="text" name="text" id="amount"
-									class="form-control border-0 pl-0 bg-white" disabled="" />
+									class="form-control border-0 pl-0 bg-white" />
 							</div>
 
 							<div class="mb-4">
@@ -324,7 +161,9 @@
 									data-aos="fade" data-aos-delay="">
 									<a class="block-2-item" href="#">
 										<figure class="image">
-											<img src="${pageContext.request.contextPath}/resources/front/images/women.jpg" alt="" class="img-fluid">
+											<img
+												src="${pageContext.request.contextPath}/resources/front/images/women.jpg"
+												alt="" class="img-fluid">
 										</figure>
 										<div class="text">
 											<span class="text-uppercase">Collections</span>
@@ -336,7 +175,9 @@
 									data-aos="fade" data-aos-delay="100">
 									<a class="block-2-item" href="#">
 										<figure class="image">
-											<img src="${pageContext.request.contextPath}/resources/front/images/children.jpg" alt="" class="img-fluid">
+											<img
+												src="${pageContext.request.contextPath}/resources/front/images/children.jpg"
+												alt="" class="img-fluid">
 										</figure>
 										<div class="text">
 											<span class="text-uppercase">Collections</span>
@@ -348,7 +189,9 @@
 									data-aos="fade" data-aos-delay="200">
 									<a class="block-2-item" href="#">
 										<figure class="image">
-											<img src="${pageContext.request.contextPath}/resources/front/images/men.jpg" alt="" class="img-fluid">
+											<img
+												src="${pageContext.request.contextPath}/resources/front/images/men.jpg"
+												alt="" class="img-fluid">
 										</figure>
 										<div class="text">
 											<span class="text-uppercase">Collections</span>
